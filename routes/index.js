@@ -24,7 +24,7 @@ module.exports = function() {
 	
   /* Public routes */
   router.get('/login', auth.displayLogin);
-  router.post('/login', auth.login);
+  router.post('/login', auth.loginApp);
 
   return router;
 };

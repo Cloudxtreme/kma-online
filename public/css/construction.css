@@ -1,5 +1,5 @@
 body {
-	background-color: #6DC9A9;
+	background-color: #393736;
 	text-align: center;
 	margin: 0;
 	padding-top: 200px;
@@ -9,13 +9,13 @@ h1 {
 	margin: 0;
 	font-size: 4em;
 	font-family: "Helvetica Neue";
-	color: #42AE88;
+	color: #393736;
 	font-weight: 800;
 }
 
 .box {
-	padding-top: 75px;
-	padding-bottom: 75px;
+	padding-top: 100px;
+	padding-bottom: 100px;
 	width: 100%;
-	background-color: #0D8A5E;
+	background-color: #9D2800;
 }

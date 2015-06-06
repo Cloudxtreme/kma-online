@@ -6,12 +6,26 @@ var auth = {
 		res.render( 'login' );
 	},
   
-  login: function (req, res) {
+  loginApp: function (req, res) {
+    var access_token = auth.getAccessToken(req);
+    
+    if (access_token.status && access_token.status == 401) {
+      res.status(401);
+      res.json(access_token);
+    }
+    
     
   },
   
   loginApi: function (req, res) {
+    var access_token = auth.getAccessToken(req);
     
+    if (access_token.status && access_token.status == 401) {
+      res.status(401);
+      res.json(access_token);
+    }
+    
+    res.json(access_token);
   },
 	
 	getAccessToken: function(req) {
@@ -20,24 +34,20 @@ var auth = {
     var password = req.body.password || '';
  
     if (username == '' || password == '') {
-      res.status(401);
-      res.json({
+      return {
         "status": 401,
         "message": "Invalid credentials"
-      });
-      return;
+      };
     }
  
     // Fire a query to your DB and check if the credentials are valid
     var dbUserObj = auth.validate(username, password);
    
     if (!dbUserObj) { // If authentication fails, we send a 401 back
-      res.status(401);
-      res.json({
+      return {
         "status": 401,
         "message": "Invalid credentials"
-      });
-      return;
+      };
     }
  
     if (dbUserObj) {
@@ -45,7 +55,7 @@ var auth = {
       // If authentication is success, we will generate a token
       // and dispatch it to the client
  
-      res.json(genToken(dbUserObj));
+      return genToken(dbUserObj);
     }
  
   },
