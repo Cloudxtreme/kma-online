@@ -11,6 +11,7 @@ function getMongoUrl() {
 		case "production":
 			return "mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/";
 		case "waite":
+		case "dorff":
 			return "mongodb://localhost/kma";
 	}
 }
