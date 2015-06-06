@@ -6,15 +6,14 @@ var auth = {
 		res.render( 'login' );
 	},
   
-  loginApp: function (req, res) {
+  loginApp: function (req, username, password, done) {
     var access_token = auth.getAccessToken(req);
     
     if (access_token.status && access_token.status == 401) {
-      res.status(401);
-      res.json(access_token);
+      done(null, false, access_token.message);
     }
     
-    
+    done(null, {name:'Justin', id:1});
   },
   
   loginApi: function (req, res) {

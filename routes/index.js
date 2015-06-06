@@ -3,6 +3,7 @@ var router  = express.Router();
 
 var auth    = require('./auth.js');
 var user    = require('./users.js');
+var app     = require('./app');
 
 module.exports = function() {
   
@@ -24,7 +25,8 @@ module.exports = function() {
 	
   /* Public routes */
   router.get('/login', auth.displayLogin);
-  router.post('/login', auth.loginApp);
+  router.get('/app', app.index);
+  //router.post('/login', auth.loginApp);
 
   return router;
 };
