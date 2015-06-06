@@ -4,7 +4,7 @@
  
 body {
 	background-color: #393736;
-	font-family: "Helvetica Neue";
+	font-family: 'Montserrat', "Helvetica Neue", sans-serif;
 	margin: 0;
 }
 
@@ -20,12 +20,18 @@ body {
 
 .login-form {
 	margin: auto;
-	margin-top: 200px;
-	width: 100%;
-	background-color: #929292;
+	margin-top: 13%;
+	width: 24%;
+	/*width: 100%;*/
+	/*background-color: rgba(146, 146, 146, .1);*/
 	text-align: center;
-	padding-top: 30px;
-	padding-bottom: 20px;
+	padding-top: 32px;
+	padding-bottom: 32px;
+	border: 1px #E7E3E1 solid;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 0px 170px 71px rgba(0,0,0,0.28);
+	-moz-box-shadow: 0px 0px 170px 71px rgba(0,0,0,0.28);
+	box-shadow: 0px 0px 170px 71px rgba(0,0,0,0.28);
 }
 
 .login-form h1 {
@@ -34,39 +40,74 @@ body {
 }
 
 .login-form-input {
-	background-color: #616161;
+	font-family: 'Source Sans Pro', "Helvetica Neue", sans-serif;
+	background-color: rgba(28, 27, 27, .5);
 	width: 300px;
 	height: 40px;
 	margin-top: 5px;
 	font-size: 1.15em;
 	padding-left: 10px;
 	padding-right: 10px;
-	color: white;
+	color: #E7E3E1;
+	border: 1px #393736 solid;
+	border-radius: 4px;
+	transition: all 0.3s;
 }
 
-.login-form-submit {
+.login-form-input:hover {
+	background-color: rgba(93, 94, 97, .2);
+}
+
+.login-form-input:focus {
+	background-color: rgba(93, 94, 97, 1);
+	-webkit-box-shadow: inset 0px 0px 100px -79px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset 0px 0px 100px -79px rgba(0,0,0,0.75);
+	box-shadow: inset 0px 0px 100px -79px rgba(0,0,0,0.75);
+	outline-color: transparent;
+   outline-style: none;
+}
+
+.login-form-submit {	
+	font-family: 'Source Sans Pro', "Helvetica Neue", sans-serif;
 	position: relative;
 	border: none;
 	width: 300px;
 	height: 40px;
 	margin-top: 30px;
-	background-color: #D03500;
+	background-color: rgba(227, 138, 66, 1);
 	color: #FFF;
 	font-size: 1.25em;
 }
 
 .login-form-submit:hover {
-	background-color: #9D2800;
+	background-color: rgba(227, 138, 66, .9);
 	color: #FFF;
 }
 
 .login-form-submit:active {
-	background-color: #9D2800;
-	top: -2px;
+	background-color: rgba(227, 138, 66, .7);
 	color: #E7E3E1;
 }
 
 #message {
-	color: #393736;
+	color: rgba(252, 107, 111, 1);
 	font-weight: 400;
+	font-family: 'Source Sans Pro', "Helvetica Neue", sans-serif;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+   color:   rgba(93, 94, 97, .6);
+	font-family: 'Source Sans Pro', "Helvetica Neue", sans-serif;
+	font-size: 1.1em;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:   rgba(93, 94, 97, .6);
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:   rgba(93, 94, 97, .6);
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:   rgba(93, 94, 97, .6);
 }
