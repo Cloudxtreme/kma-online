@@ -64,11 +64,11 @@ app.use(passport.session()   );
 app.post('/login', function (req, res, next) {
   passport.authenticate('local_kma', function(err, user, info) {
     if (err) { return next(err); }
-    console.log(info);
+    console.log('info: ', info);
     if (!user) { return res.redirect('/login'); }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      return res.redirect('/app/' + user.username);
+      return res.redirect('/app/');
     });
   })(req, res, next);
 })
