@@ -2,6 +2,10 @@
 
 /* JQuery handlers */
 $(document).ready(function () {
+
+  // $('login-form-input').click(function (){
+  //   $('login-form-input').removeClass("login-form-input").addClass("login-form-input-selected").fade();
+  // });
 	
   $('#login-form').submit(function (event) {
 	console.log('clicked');
