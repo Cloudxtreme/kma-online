@@ -1,0 +1,72 @@
+/*
+ * Color Palett Base: #FF5B22
+ */
+ 
+body {
+	background-color: #393736;
+	font-family: "Helvetica Neue";
+	margin: 0;
+}
+
+.back-box {
+	margin: 0;
+	top: 0;
+	position: absolute;
+	width: 100%;
+	height: 250px;
+	background-color: #9D2800;
+	z-index: -1000;
+}
+
+.login-form {
+	margin: auto;
+	margin-top: 200px;
+	width: 100%;
+	background-color: #929292;
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 20px;
+}
+
+.login-form h1 {
+	font-weight: 200;
+	color: #E7E3E1;
+}
+
+.login-form-input {
+	background-color: #616161;
+	width: 300px;
+	height: 40px;
+	margin-top: 5px;
+	font-size: 1.15em;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: white;
+}
+
+.login-form-submit {
+	position: relative;
+	border: none;
+	width: 300px;
+	height: 40px;
+	margin-top: 30px;
+	background-color: #D03500;
+	color: #FFF;
+	font-size: 1.25em;
+}
+
+.login-form-submit:hover {
+	background-color: #9D2800;
+	color: #FFF;
+}
+
+.login-form-submit:active {
+	background-color: #9D2800;
+	top: -2px;
+	color: #E7E3E1;
+}
+
+#message {
+	color: #393736;
+	font-weight: 400;
+}

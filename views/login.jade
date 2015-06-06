@@ -1,0 +1,17 @@
+html
+  head
+    link(rel="stylesheet", href="css/login.css")
+  body
+    //div(class='back-box')
+    div(class='login-form')
+      form(id="login-form", action="login", method="POST")
+        h1 K&M Construction
+        input(class="login-form-input", type="text", id="username", placeholder="Username")
+        br
+        input(class="login-form-input", type="password", id="password", placeholder="Password")
+        br
+        input(class="login-form-submit", type="submit", value="Login")
+      span(id="message")
+      
+    script(src="js/jquery.js")
+    script(src="js/login.js")
