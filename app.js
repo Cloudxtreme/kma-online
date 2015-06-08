@@ -1,17 +1,23 @@
-var express 	   = require('express');
-var path 		     = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var morgan 		   = require('morgan');
-var session      = require('express-session');
-var MongoStore   = require("connect-mongo")(session);
-var passport     = require('passport');
-var config       = require('./config')();
-var auth         = require('./routes/auth.js');
+var express 	    = require('express');
+var path 		      = require('path');
+var cookieParser  = require('cookie-parser');
+var bodyParser    = require('body-parser');
+var morgan 		    = require('morgan');
+var session       = require('express-session');
+var MongoStore    = require("connect-mongo")(session);
+var flash         = require('connect-flash'); 
+var passport      = require('passport');
+var config        = require('./config')();
+var auth;          
+var querystring   = require('querystring');
+var autoIncrement = require('mongoose-auto-increment');
 
-var express = require('express');
-var app = express();
+var express = require('express'),
+    app = express();
 
+var mongoose = require('mongoose'),
+    Models;
+    
 /* Logger Setup */
 if (process.env.NODE_ENV != 'production')
   app.use(morgan('dev'));
@@ -25,52 +31,106 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-/* Mongo Session Setup */
-app.use(session({ 
-  store: new MongoStore({
-    url: config.mongo_url,
-    ttl: 60 * 30
-  }),
-  secret: 'mongo secret'
-}));
-
 /* Setup Static Handling */
 app.use(express.static(path.join(__dirname, 'public')));
-
-/* Passport Setup */
-var LocalStrategy = require('passport-local').Strategy;
-
-passport.use('local_kma', new LocalStrategy( {passReqToCallback: true },
-	auth.loginApp));
+   
+/* MongoDB Connection and Session Setup */
+mongoose.connect(config.mongo_url, function(err) {
+  if (err) throw err;
+  console.log('Successfully connected to MongoDB' );
   
-passport.serializeUser(function (user, done) {
-	var id = user.id;
-	done(null, id);
+  //Must be called after mongoose has connected.
+  autoIncrement.initialize(mongoose.connection);
+  Models = require('./models');
+  auth = require('./routes/auth.js');
+  
+  app.use(session({ 
+    store: new MongoStore({ 
+        mongooseConnection: mongoose.connection,
+        ttl: 60 * 30
+      }),
+    secret: 'mongo secret',
+    saveUninitialized: true,
+    resave: true
+  }));
+  
+  addTestUser();
+  
+  app.use(flash());
+  
+  app.use(passport.initialize());
+  app.use(passport.session()   );
+  
+  /* Passport Setup */
+  var LocalStrategy = require('passport-local').Strategy;
+  
+  passport.use('local_kma', new LocalStrategy( { passReqToCallback: true },
+  	auth.loginApp));
+    
+  passport.serializeUser(function (user, done) {
+  	var id = user._id;
+  	done(null, id);
+  });
+  
+  passport.deserializeUser(function (req, id, done) {
+  	Models.User.findOne({ _id: id }).exec()
+      .then(function (dbUser) {
+        if (dbUser)
+  		    done(null, dbUser);
+  		  else
+  			  done(null, null);
+      });
+  });
+  
+  app.post('/login', function (req, res, next) {
+    passport.authenticate('local_kma', { failureFlash : true }, function(err, user, info) {
+      console.log('hm');
+      if (err)
+        return next(err);
+        
+      //Add the failure message in here.  
+      if (!user) {
+        if (info)
+          req.flash('login', info.message);
+        return res.redirect('/login');
+      } 
+      
+      req.logIn(user, function(err) {
+        if (err)
+          return next(err);
+          
+        return res.redirect('/app/');
+      });
+      
+    })(req, res, next);
+  });
+  
+          
+  /* Router setup */
+  app.use('/', require('./routes')());
+  
 });
 
-passport.deserializeUser(function (req, id, done) {
-//	req.models.User.find(id).then(function (user) {
-//    if (user)
-//		  done(null, user);
-//		else
-//			done(null, null);
-//	});
-  done(null, {name: 'Justin', id: 1});
-});
-
-app.use(passport.initialize());
-app.use(passport.session()   );
-
-app.post('/login', function (req, res, next) {
-  passport.authenticate('local_kma', function(err, user, info) {
-    if (err) { return next(err); }
-    console.log('info: ', info);
-    if (!user) { return res.redirect('/login'); }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.redirect('/app/');
+function addTestUser() {
+  if (process.env.NODE_ENV == "production")
+    return;
+    
+  Models.User.findOne({ username: "admin" }, function (err, user){
+    if (err || user)
+      return;
+      
+    // create a user a new user
+    var testUser = new Models.User({
+      username: "admin",
+      password: "password"
     });
-  })(req, res, next);
-})
+   
+    // save user to database
+    testUser.save(function(err) {
+      if (err) throw err;
+    });
+  });
+    
+}
 
 module.exports = app;

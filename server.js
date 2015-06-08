@@ -76,9 +76,7 @@ var KMApp = function() {
     self.initializeServer = function() {
         //self.createRoutes();
         self.app = require("./app.js");
-        
-        //routers
-        self.app.use('/', require('./routes')());
+
     };
 
 

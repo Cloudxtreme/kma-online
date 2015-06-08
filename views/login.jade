@@ -5,7 +5,7 @@ html
     link(href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300', rel='stylesheet', type='text/css')
   body
     //div(class='back-box')
-    div(class="logo")
+    //div(class="logo")
       h1 K&M Construction
     div(class='login-form')
       form(id="login-form", action="login", method="POST")
@@ -14,7 +14,7 @@ html
         input(class="login-form-input", type="password", name="password", placeholder="Password")
         br
         input(class="login-form-submit", type="submit", value="Login")
-      span(id="message")
+      span(id="message")= (msg) ? msg : ""
 
     script(src="js/jquery.js")
     script(src="js/login.js")

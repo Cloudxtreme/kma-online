@@ -21,13 +21,14 @@ body {
 .login-form {
 	background-color: rgba(255, 80, 38, 1);
 	margin: auto;
+	margin-top: 8%;
 	/*margin-top: 13%;*/
 	width: 26%;
 	/*width: 100%;*/
 	/*background-color: rgba(146, 146, 146, .1);*/
 	text-align: center;
 	padding-top: 26px;
-	padding-bottom: 26px;
+	padding-bottom: 16px;
 	/*border-top: 1px #E7E3E1 solid;
 	border-bottom: 1px #E7E3E1 solid;*/
 	/*border: 1px #E7E3E1 solid;
@@ -49,7 +50,7 @@ h1 {
 	text-align: center;
 	font-weight: 200;
 	font-size: 2.3em;
-	color: black;
+	color: rgb(253, 82, 50);
 /*	padding-top: 20px;
 	padding-bottom: 50px;
 	text-shadow: 1px 1px rgba(93, 94, 97, 1);*/
@@ -102,11 +103,11 @@ h1 {
 	background-color: rgba(223, 43, 0, 1);
 	color: #FFF;
 	font-size: 1.25em;
-	transition: all .3s;
+	transition: background-color .3s, color .3s;
 }
 
 .login-form-submit:hover {
-	background-color: rgba(193, 13, 0, .9);
+	background-color: rgba(193, 13, 0, .7);
 	color: #FFF;
 	/*right: 32px;*/
 }

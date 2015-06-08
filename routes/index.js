@@ -25,8 +25,12 @@ module.exports = function() {
 	
   /* Public routes */
   router.get('/login', auth.displayLogin);
+  
+  /* Application routes */
   router.get('/app', app.index);
-  //router.post('/login', auth.loginApp);
+  
+  /* API routes */
+  router.get('/api/v1/user/:id', user.getOne);
 
   return router;
 };
