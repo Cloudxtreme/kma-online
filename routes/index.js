@@ -2,7 +2,8 @@ var express = require('express');
 var router  = express.Router();
 
 var auth    = require('./auth.js');
-var user    = require('./users.js');
+var users    = require('./api/users.js');
+var clients  = require('./api/clients.js');
 var app     = require('./app');
 
 module.exports = function() {
@@ -32,7 +33,11 @@ module.exports = function() {
   router.get('/app/clients', app.clients)
   
   /* API routes */
-  router.get('/api/v1/user/:id', user.getOne);
+  router.get('/api/v1/user/:id', users.getOne);
+  
+  router.get('/api/v2/clients/:id', clients.getOne);
+  router.get('/api/v1/clients', clients.getAll);
+  router.post('/api/v1/clients', clients.create);
 
   return router;
 };

@@ -1,11 +1,14 @@
 extends ../../layout.jade
 block title
   title Clients
+  
+block links
+  link(type="text/css", rel="stylesheet", href="/css/clients.css")
 
 block content
   div(class="container")
     div(class="fixed-action-btn" style="bottom: 45px; right: 45px;")
-      a(class="btn-floating btn-large red")
+      a(id="btn-add", class="btn-floating btn-large waves-effect waves-light red lighten-2")
         i(class="large mdi-content-add")
     //div(class="row")
       div(class="col s12")
@@ -18,18 +21,19 @@ block content
           a(href="#!" class="collection-item") Who is Alvin?
           a(href="#!" class="collection-item") Alvin
           
-    div(class="row")
-      div(class="col s12")
-        a(href="#")
-          div(class="card white")
+    each client in clients
+      div(class="row")
+        div(class="col s12")
+          a(href="#")
+            div(class="card white")
+  
+              div(class="card-action")
+                span(class="teal-text text-accent-4")= client.name
+                a(href='#' class="right") Edit Client
+                a(href='#' class="right") View Client Info
+                a(href="#" class="right") View Projects
 
-            div(class="card-action")
-              span(class="teal-text text-accent-4") Justin Waite
-              a(href='#' class="right") Edit Client
-              a(href='#' class="right") View Client Info
-              a(href="#" class="right") View Projects
-
-    div(class="row")
+    //div(class="row")
       div(class="col s12")
         a(href="#")
           div(class="card white")

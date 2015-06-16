@@ -1,4 +1,4 @@
-var Models  = require('../models');
+var Models  = require('../../models');
 var Promise = require('bluebird');
 
 var users = {
