@@ -1,7 +1,58 @@
-html
-  body
-    h1 Index
-    button(id="get-user") Get User
-    span(id="json")
-    script(src="/js/jquery.js")
-    script(src="/js/app/index.js")
+extends ../layout
+block title
+  title K&M Construction
+  
+block content
+  div(class="container")
+    div(class="row")
+      div(class="col s9")
+        //div(class="row")
+          div(class="col s12")
+            h4(class="red-text text-lighten-2 thin") Dashboard
+        div(class="row")
+          div(class="col s12")
+            div(class="card teal accent-4")
+              div(class="card-content white-text")
+                span(class="card-title") Important Information
+                p I am a very simple card. I am good at containing small bits of information.
+                | I am convenient because I require little markup to use effectively.
+              
+              div(class="card-action")
+                a(href="#") This is a link
+                a(href='#') This is a link
+                
+            div(class="col s12")
+              table(class="bordered centered")
+                thead
+                  th Header 1
+                  th Header 2
+                  th Header 3
+                tbody
+                  tr
+                    td Data 1
+                    td Data 2
+                    td Data 3
+                  tr
+                    td Data 1
+                    td Data 2
+                    td Data 3
+                  tr
+                    td Data 1
+                    td Data 2
+                    td Data 3
+       
+      div(class="col s3")
+        h5 Settings
+          i(class="mdi-action-settings small left")
+        div(class="divider")
+        div(class="section")
+          a(href="#") User Settings
+          br
+          br
+          a(href="#") App Preferences
+          br
+          br
+          a(href="#") Something Else
+          
+block scripts
+  script(src="/js/app/index.js")

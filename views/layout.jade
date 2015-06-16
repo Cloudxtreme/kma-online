@@ -1,0 +1,38 @@
+doctype html
+html(lang='en')
+  head
+    block title
+    
+    block fonts
+    
+    link(type="text/css", rel="stylesheet", href="/frameworks/materialize/css/materialize.min.css", media="screen,projection")
+    block links
+  
+    meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    
+  body
+    header
+      div(class="navbar-fixed")
+        nav(class="teal")
+          ul(class="left")
+            li(id="nav-dashboard")
+              a(href="/app/")
+                i(class="mdi-action-dashboard small left")
+                | Dashboard
+            li(id="nav-clients")
+              a(href="/app/clients")
+                i(class="mdi-social-people small left")
+                | Clients
+          ul(class="right")
+            li
+              a(href="logout")
+                i(class="mdi-action-account-circle small left")
+                | Logout
+    main
+      br
+      block content
+    
+    script(type="text/javascript", src='/js/plugins/jquery.js')
+    script(type="text/javascript", src='/frameworks/materialize/js/materialize.min.js')
+    script(type="text/javascript", src='/js/nav.js')
+    block scripts

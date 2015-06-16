@@ -35,6 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
    
 /* MongoDB Connection and Session Setup */
+console.log('setting up mongoose');
 mongoose.connect(config.mongo_url, function(err) {
   if (err) throw err;
   console.log('Successfully connected to MongoDB' );
@@ -82,9 +83,8 @@ mongoose.connect(config.mongo_url, function(err) {
       });
   });
   
-  app.post('/login', function (req, res, next) {
+  app.post('/app/login', function (req, res, next) {
     passport.authenticate('local_kma', { failureFlash : true }, function(err, user, info) {
-      console.log('hm');
       if (err)
         return next(err);
         
@@ -92,7 +92,7 @@ mongoose.connect(config.mongo_url, function(err) {
       if (!user) {
         if (info)
           req.flash('login', info.message);
-        return res.redirect('/login');
+        return res.redirect('/app/login');
       } 
       
       req.logIn(user, function(err) {

@@ -1,20 +1,37 @@
-html
+doctype html
+html(lang='en')
   head
-    link(rel="stylesheet", href="css/login.css")
-    link(href='http://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
-    link(href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300', rel='stylesheet', type='text/css')
+    title Login to K&M Construction
+    link(type="text/css", rel="stylesheet", href="/frameworks/materialize/css/materialize.min.css", media="screen,projection")
+    link(type="text/css", rel="stylesheet", href="/css/login.css")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    
   body
-    //div(class='back-box')
-    //div(class="logo")
-      h1 K&M Construction
-    div(class='login-form')
-      form(id="login-form", action="login", method="POST")
-        input(class="login-form-input", type="text", name="username", placeholder="Username")
-        br
-        input(class="login-form-input", type="password", name="password", placeholder="Password")
-        br
-        input(class="login-form-submit", type="submit", value="Login")
-      span(id="message")= (msg) ? msg : ""
-
-    script(src="js/jquery.js")
-    script(src="js/login.js")
+    main
+      div(class="container")
+        div(class="card")
+          div(class="card-content black-text")
+            span(class="card-title red-text text-lighten-2") K&M Construction
+            div(class="row")
+              form(class="col s12", action="login", method="POST")
+                div(class="row")
+                  div(class="input-field col s12")
+                    i(class="mdi-action-account-circle prefix")
+                    input(id="username" name="username" type="text" class="validate")
+                    label(for="username") Username
+                div(class="row")
+                  div(class="input-field col s12")
+                    i(class="mdi-action-lock prefix")
+                    input(id="password" name="password" type="password" class="validate")
+                    label(for="password") Password
+                button(class="btn waves-effect waves-light right" type="submit" name="action") Login
+            if msg != ""
+              div(class="row")
+                div
+                  p(class="alert red-text text-lighten-2 center-align valign")= (msg) ? msg : ""
+                
+                  
+                  //p(class="alert red-text text-lighten-2 center-align valign")= (msg) ? msg : ""
+    
+    script(type="text/javascript", src='/js/plugins/jquery.js')
+    script(type="text/javascript", src='/frameworks/materialize/js/materialize.min.js')

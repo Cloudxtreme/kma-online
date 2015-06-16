@@ -12,6 +12,11 @@ var auth = {
 		res.render('login', { msg: req.flash && req.flash('login') });
 	},
   
+  logoutApp: function (req, res) {
+    req.logout();
+    res.redirect('login');
+  },
+  
   /* Login function for the web app */
   loginApp: function (req, username, password, done) {
     auth.getAccessToken(req)

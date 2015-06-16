@@ -1,0 +1,56 @@
+extends ../../layout.jade
+block title
+  title Clients
+
+block content
+  div(class="container")
+    div(class="fixed-action-btn" style="bottom: 45px; right: 45px;")
+      a(class="btn-floating btn-large red")
+        i(class="large mdi-content-add")
+    //div(class="row")
+      div(class="col s12")
+        h4(class="red-text text-lighten-2 thin") Clients
+    //div(class="row")
+      div(class="col s12")
+        div(class="collection")
+          a(href="#!" class="collection-item")
+          a(href="#!" class="collection-item active") Alvin
+          a(href="#!" class="collection-item") Who is Alvin?
+          a(href="#!" class="collection-item") Alvin
+          
+    div(class="row")
+      div(class="col s12")
+        a(href="#")
+          div(class="card white")
+
+            div(class="card-action")
+              span(class="teal-text text-accent-4") Justin Waite
+              a(href='#' class="right") Edit Client
+              a(href='#' class="right") View Client Info
+              a(href="#" class="right") View Projects
+
+    div(class="row")
+      div(class="col s12")
+        a(href="#")
+          div(class="card white")
+            div(class="card-content")
+              div(class="row")
+                div(class="col s6")
+                  span(class="card-title teal-text text-accent-4") McKenna Prause
+                div(class="col s6")
+                  div(class="row")
+                    div(class="col s12")
+                      span(class="right") Something
+                  div(class="row")
+                    div(class="col s12")
+                      span(class="right") Something                    
+
+
+            div(class="card-action")
+              a(href='#' class="right") Edit Client
+              a(href='#' class="right") View Client Info
+              a(href="#" class="right") View Projects
+
+
+block scripts
+  script(src="/js/app/clients.js")
