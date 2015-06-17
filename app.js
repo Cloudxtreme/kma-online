@@ -31,6 +31,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+//temp redirect to login for app
+app.get('/', function (req, res) {
+  res.redirect('/app/login');
+});
+
 /* Setup Static Handling */
 app.use(express.static(path.join(__dirname, 'public')));
    
