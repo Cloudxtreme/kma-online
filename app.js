@@ -37,7 +37,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* MongoDB Connection and Session Setup */
 console.log('setting up mongoose');
 mongoose.connect(config.mongo_url, function(err) {
-  if (err) throw err;
+  if (err) {
+    console.error('Error connecting to MongoDB. Make sure mongodb is running.');
+    throw err;
+  }
+  
   console.log('Successfully connected to MongoDB' );
   
   //Must be called after mongoose has connected.

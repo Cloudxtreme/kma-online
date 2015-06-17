@@ -15,7 +15,7 @@ var clients = {
 	},
 	
 	getAll: function (req, res) {
-		Promise.resolve(Mdoels.Client.find().exec())
+		Promise.resolve(Models.Client.find().exec())
 			.then(function (clients) {
 				return res.json(clients);
 			});
@@ -33,6 +33,9 @@ var clients = {
 				
 				if (err.code == 11000)
 					return res.status(400).send("A duplicate entry was found!");
+				
+				console.error(err);	
+				return res.status(400).send("Unknown Error Occurred.");
 			});	
 	}
 	

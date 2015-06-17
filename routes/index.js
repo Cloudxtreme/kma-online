@@ -29,8 +29,9 @@ module.exports = function() {
   
   /* Application routes */
   router.get('/app', app.index);
-  router.get('/app/logout', auth.logoutApp)
-  router.get('/app/clients', app.clients)
+  router.get('/app/logout', auth.logoutApp);
+  router.get('/app/clients', app.clients.index);
+  router.get('/app/clients/add', app.clients.add);
   
   /* API routes */
   router.get('/api/v1/user/:id', users.getOne);

@@ -6,12 +6,7 @@ var index = {
 		res.render('app/index');
 	},
 	
-	clients: function (req, res) {
-		Promise.resolve(Models.Client.find().exec())
-			.then(function (clients) {
-				return res.render('app/clients/clients.jade', { clients: clients });
-			});
-	}
+	clients: require('./clients.js')
 };
 
 module.exports = index;

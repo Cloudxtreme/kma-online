@@ -1,0 +1,109 @@
+extends ../../layout.jade
+block title
+  title Add a client
+  
+block links
+  link(type="text/css", rel="stylesheet", href="/css/app/clients/clients.css")
+
+block content
+  div(class="container container-small")
+    div(class="row")
+      div(class="col s12")
+        h4(class="red-text lighten-2 thin") Add a client
+    div(class="row")
+      div(class="col s12")
+        div(class="card white")
+          div(class="card-content")
+            div(class="row")
+              div(class="input-field col s12 m6")
+                input(id="name", type="text", class="validate")
+                label(for="name") Name
+              div(class="input-field col s12 m6")
+                input(id="company", type="text", class="validate")
+                label(for="company") Company
+            div(class="row")
+              div(class="input-field col s12")
+                input(id="email", type="email", class="validate")
+                label(for="email") Email
+            div(class="row")
+              div(class="input-field col s12")
+                input(id="phone", type="text", class="validate")
+                label(for="phone") Phone
+            div(class="row")
+              div(class="input-field col s12")
+                input(id="addr1", type="text", class="validate")
+                label(for="addr1") Address Line 1
+            div(class="row")
+              div(class="input-field col s12")
+                input(id="addr2", type="text", class="validate")
+                label(for="addr2") Address Line 2
+            div(class="row")
+              div(class="input-field col s4")
+                input(id="city", type="text", class="validate")
+                label(for="city") City
+              div(class="input-field col s4")
+                select(id="state", class="browser-default")
+                  option(value="" disabled selected) Select a state
+                  option(value="AL") Alabama
+                  option(value="AK") Alaska
+                  option(value="AZ") Arizona
+                  option(value="AR") Arkansas
+                  option(value="CA") California
+                  option(value="CO") Colorado
+                  option(value="CT") Connecticut
+                  option(value="DE") Delaware
+                  option(value="FL") Florida
+                  option(value="GA") Georgia
+                  option(value="HI") Hawaii
+                  option(value="ID") Idaho
+                  option(value="IL") Illinois
+                  option(value="IN") Indiana
+                  option(value="IA") Iowa
+                  option(value="KS") Kansas
+                  option(value="KY") Kentucky
+                  option(value="LA") Louisiana
+                  option(value="ME") Maine
+                  option(value="MD") Maryland
+                  option(value="MA") Massachusetts
+                  option(value="MI") Michigan
+                  option(value="MN") Minnesota
+                  option(value="MS") Mississippi
+                  option(value="MO") Missouri
+                  option(value="MT") Montana
+                  option(value="NE") Nebraska
+                  option(value="NV") Nevada
+                  option(value="NH") New Hampshire
+                  option(value="NJ") New Jersey
+                  option(value="NM") New Mexico
+                  option(value="NY") New York
+                  option(value="NC") North Carolina
+                  option(value="ND") North Dakota
+                  option(value="OH") Ohio
+                  option(value="OK") Oklahoma
+                  option(value="OR") Oregon
+                  option(value="PA") Pennsylvania
+                  option(value="RI") Rhode Island
+                  option(value="SC") South Carolina
+                  option(value="SD") South Dakota
+                  option(value="TN") Tennessee
+                  option(value="TX") Texas
+                  option(value="UT") Utah
+                  option(value="VT") Vermont
+                  option(value="VA") Virginia
+                  option(value="WA") Washington
+                  option(value="WV") West Virginia
+                  option(value="WI") Wisconsin
+                  option(value="WY") Wyoming
+              div(class="input-field col s4")
+                input(id="zip", type="text", class="validate")
+                label(for="zip") Zip
+                
+            div(class="row", style="margin-top: 20px")
+              div(class="col s12")
+                span(id="message", class="red-text text-lighten-2 left")
+                a(id="btn-add", class="right waves-effect waves-light btn")
+                  i(class="mdi-content-add right")
+                  | Add
+
+block scripts
+  script(src="/js/app/clients/client-add.js")
