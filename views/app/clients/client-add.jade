@@ -1,6 +1,6 @@
 extends ../../layout.jade
 block title
-  title Add a client
+  title= (!client) ? "Add a client" : "Edit client"
   
 block links
   link(type="text/css", rel="stylesheet", href="/css/app/clients/clients.css")
@@ -8,41 +8,45 @@ block links
 block content
   div(class="container container-small")
     div(class="row")
-      div(class="col s12")
-        h4(class="red-text lighten-2 thin") Add a client
+      div(class="col s7")
+        h4(class="red-text text-lighten-2 thin")= (!client) ? "Add a client" : "Edit Client"
+      div(class="col s5")
+        a(href="/app/clients" class="waves-effect waves-blue btn-flat right bottom blue-text")
+          i(class="mdi-navigation-arrow-back left")
+          | Back
     div(class="row")
       div(class="col s12")
         div(class="card white")
           div(class="card-content")
             div(class="row")
               div(class="input-field col s12 m6")
-                input(id="name", type="text", class="validate")
+                input(id="name", type="text", class="validate", value=(!client) ? "" : client.name)
                 label(for="name") Name
               div(class="input-field col s12 m6")
-                input(id="company", type="text", class="validate")
+                input(id="company", type="text", class="validate", value=(!client) ? "" : client.company)
                 label(for="company") Company
             div(class="row")
               div(class="input-field col s12")
-                input(id="email", type="email", class="validate")
+                input(id="email", type="email", class="validate", value=(!client) ? "" : client.email)
                 label(for="email") Email
             div(class="row")
               div(class="input-field col s12")
-                input(id="phone", type="text", class="validate")
+                input(id="phone", type="text", class="validate", value=(!client) ? "" : client.phone)
                 label(for="phone") Phone
             div(class="row")
               div(class="input-field col s12")
-                input(id="addr1", type="text", class="validate")
+                input(id="addr1", type="text", class="validate", value=(!client) ? "" : client.addr1)
                 label(for="addr1") Address Line 1
             div(class="row")
               div(class="input-field col s12")
-                input(id="addr2", type="text", class="validate")
+                input(id="addr2", type="text", class="validate", value=(!client) ? "" : client.addr2)
                 label(for="addr2") Address Line 2
             div(class="row")
               div(class="input-field col s4")
-                input(id="city", type="text", class="validate")
+                input(id="city", type="text", class="validate", value=(!client) ? "" : client.city)
                 label(for="city") City
               div(class="input-field col s4")
-                select(id="state", class="browser-default")
+                select(id="state", class="browser-default", value=(!client) ? "" : client.state)
                   option(value="" disabled selected) Select a state
                   option(value="AL") Alabama
                   option(value="AK") Alaska
@@ -95,15 +99,17 @@ block content
                   option(value="WI") Wisconsin
                   option(value="WY") Wyoming
               div(class="input-field col s4")
-                input(id="zip", type="text", class="validate")
+                input(id="zip", type="text", class="validate", value=(!client) ? "" : client.zip)
                 label(for="zip") Zip
                 
             div(class="row", style="margin-top: 20px")
               div(class="col s12")
                 span(id="message", class="red-text text-lighten-2 left")
-                a(id="btn-add", class="right waves-effect waves-light btn")
-                  i(class="mdi-content-add right")
-                  | Add
+                a(id="btn-add", class="right blue waves-effect waves-light btn")
+                  i(class=((!client) ? "mdi-content-add" : "mdi-content-save") + " right")
+                  = (!client) ? "Add" : "Save"
 
 block scripts
+  script(type='text/javascript').
+   var client =!{JSON.stringify(client)}
   script(src="/js/app/clients/client-add.js")

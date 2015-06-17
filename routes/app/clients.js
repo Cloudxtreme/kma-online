@@ -11,6 +11,13 @@ var clients = {
 	
 	add: function (req, res) {
 		return res.render('app/clients/client-add.jade');
+	},
+	
+	edit: function (req, res) {
+		Promise.resolve(Models.Client.findOne({ _id: req.params.id }).exec())
+			.then(function (client) {
+				return res.render('app/clients/client-add.jade', { client: client });
+			});
 	}
 };
 

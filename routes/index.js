@@ -4,6 +4,7 @@ var router  = express.Router();
 var auth    = require('./auth.js');
 var users    = require('./api/users.js');
 var clients  = require('./api/clients.js');
+var projects = require('./api/projects.js');
 var app     = require('./app');
 
 module.exports = function() {
@@ -32,13 +33,23 @@ module.exports = function() {
   router.get('/app/logout', auth.logoutApp);
   router.get('/app/clients', app.clients.index);
   router.get('/app/clients/add', app.clients.add);
+  router.get('/app/clients/edit/:id', app.clients.edit);
+  
+  router.get('/app/clients/:clientId/projects', app.projects.index);
+  router.get('/app/clients/:clientId/projects/add', app.projects.add);
   
   /* API routes */
   router.get('/api/v1/user/:id', users.getOne);
   
-  router.get('/api/v2/clients/:id', clients.getOne);
+  router.get('/api/v1/clients/:id', clients.getOne);
   router.get('/api/v1/clients', clients.getAll);
   router.post('/api/v1/clients', clients.create);
+  router.put('/api/v1/clients', clients.update);
+  
+  router.get('/api/v1/projects/:id', projects.getOne);
+  router.get('/api/v1/projects', projects.getAll);
+  router.post('/api/v1/projects', projects.create);
+  router.put('/api/v1/projects', projects.update);
 
   return router;
 };

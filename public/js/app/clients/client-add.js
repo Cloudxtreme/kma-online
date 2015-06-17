@@ -2,6 +2,12 @@ $(document).ready(function () {
   $('select').material_select();
   
   $('#btn-add').click(addButtonClicked);
+  
+  if (client)
+    $('option').each(function (){
+      if ($(this).val() == client.state)
+        $(this).prop('selected', 'selected');
+    });
 });
 
 $(document).ajaxError(function (event, xhr, settings, thrownError) {
@@ -11,6 +17,7 @@ $(document).ajaxError(function (event, xhr, settings, thrownError) {
 /*
  * When the add button is clicked this will call all of the
  * validator functions to make sure everything is good to go.
+ * It will then submit the new or edited client.
  */
 function addButtonClicked () {
   if (!validateName()) return;
@@ -35,11 +42,23 @@ function addButtonClicked () {
   if (isNaN(newClient.zip))
     newClient.zip = 0;
   
-  //console.log('newClient:', newClient);
-  $.post('/api/v1/clients/', newClient, function (res) {
-    console.log('redirecting');
-    window.location = "/app/clients";
-  });
+  if (!client)
+    $.post('/api/v1/clients/', newClient, function (res) {
+      window.location = "/app/clients";
+    });
+  
+  else {
+    newClient._id = client._id;
+    newClient.__v = client.__v;
+    $.ajax({
+      url: '/api/v1/clients/',
+      data: newClient,
+      type: 'PUT',
+      success: function (res) {
+        window.location = "/app/clients";
+      }
+    });
+  }
 }
 
 /*

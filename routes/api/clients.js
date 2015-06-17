@@ -37,6 +37,20 @@ var clients = {
 				console.error(err);	
 				return res.status(400).send("Unknown Error Occurred.");
 			});	
+	},
+	
+	update: function (req, res) {
+		var id = req.body._id;
+		console.log('updating client with id of ' + id);
+		
+		Promise.resolve(Models.Client.update({ _id: id }, req.body).exec())
+			.then(function (updatedClient) {
+				res.status(200).send('Success');
+			})
+			.catch(function (err) {
+				console.error('Bad things:', err);
+				res.status(400).send('Error updating client :(');
+			});
 	}
 	
 };
