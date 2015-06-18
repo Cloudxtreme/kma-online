@@ -18,7 +18,7 @@ function addButtonClicked () {
   var newProject = {
     _client: clientId,
     name: $("#name").val(),
-    company: $("#location").val(),
+    location: $("#location").val(),
     isActive: (project) ? project.isActive : true
   };
   

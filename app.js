@@ -121,8 +121,8 @@ mongoose.connect(config.mongo_url, function(err) {
 });
 
 function addTestUser() {
-  if (process.env.NODE_ENV == "production")
-    return;
+  //if (process.env.NODE_ENV == "production")
+  //  return;
     
   Models.User.findOne({ username: "admin" }, function (err, user){
     if (err || user)

@@ -30,8 +30,16 @@ block content
           div(class="col s12")
             a(href="#")
               div(class="card white")
-                div(class="card-content")
-                  span(class="card-title teal-text text-accent-4")= project.name
+                div(class="card-content blue lighten-2")
+                  div(class="row")
+                    div(class="col s5")
+                      div(class="row")
+                        div(class="col s12")
+                          span(class="card-title white-text")= project.name
+                      div(class="row")
+                        div(class="col s12")
+                          if project.location
+                            span(class="white-text")= project.location
                 div(class="card-action")
                   a(href='/app/projects/edit/' + project._id, class="right") Edit Project
                   //a(href='#' class="right") View Client Info
