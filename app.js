@@ -124,18 +124,18 @@ function addTestUser() {
   //if (process.env.NODE_ENV == "production")
   //  return;
     
-  Models.User.findOne({ username: "admin" }, function (err, user){
-    if (err || user)
+  Models.User.find(function (err, users){
+    if (err || (users && users.length > 0))
       return;
       
     // create a user a new user
-    var testUser = new Models.User({
+    var defaultUser = new Models.User({
       username: "admin",
       password: "password"
     });
    
     // save user to database
-    testUser.save(function(err) {
+    defaultUser.save(function(err) {
       if (err) throw err;
     });
   });
