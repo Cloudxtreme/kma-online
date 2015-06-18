@@ -14,14 +14,17 @@ block content
     div(class="row")
       div(class="col s7")
         h4(class="red-text text-lighten-2 thin")
-          = client.name + " > " 
-          | Projects
+          = client.name
       div(class="col s5")
         a(href="/app/clients" class="waves-effect waves-blue btn-flat right bottom blue-text")
           i(class="mdi-navigation-arrow-back left")
           | Back
     
     if client && client.projects && client.projects.length > 1
+      div(class="row")
+        div(class="col s12")
+          h5(class="grey-text thin") Projects
+          div(class="divider grey")
       div(class="row")
         div(class="col s12 m6 offset-m6")
           div(class="input-field")
