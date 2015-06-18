@@ -33,6 +33,7 @@
     "jwt-simple": "^0.3.0",
     "mongoose": "^4.0.5",
     "mongoose-auto-increment": "^4.0.0",
+    "mongoose-createdmodified": "0.0.2",
     "morgan": "^1.5.3",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0"

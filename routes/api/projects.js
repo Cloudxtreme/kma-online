@@ -54,7 +54,13 @@ var projects = {
 		var id = req.body._id;
 		console.log('updating project with id of ' + id);
 		
-		Promise.resolve(Models.Project.update({ _id: id }, req.body).exec())
+		Promise.resolve(Models.Project.findOne({ _id: id }).exec())
+			.then(function (dbProject) {
+				dbProject.name = req.body.name;
+				dbProject.location = req.body.location;
+				console.log('saving');
+				return Promise.resolve(dbProject.save());
+			})
 			.then(function (updatedProject) {
 				res.status(200).send('Success');
 			})

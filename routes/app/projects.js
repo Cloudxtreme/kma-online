@@ -5,7 +5,7 @@ var projects = {
 	index: function (req, res) {
 		var clientId = req.params.clientId;
 		Promise.resolve(Models.Client.findOne({ _id: clientId })
-			.populate('projects')
+			.populate({path:'projects', options:{sort:{'modified':-1}}})
 			.exec())
 			.then(function (client) {
 				console.log('client:', client);
@@ -15,14 +15,14 @@ var projects = {
 	
 	add: function (req, res) {
 		return res.render('app/projects/project-add.jade', { clientId: req.params.clientId, project: null });
-	}//,
-//	
-//	edit: function (req, res) {
-//		Promise.resolve(Models.Client.findOne({ _id: req.params.id }).exec())
-//			.then(function (client) {
-//				return res.render('app/clients/client-add.jade', { client: client });
-//			});
-//	}
+	},
+	
+	edit: function (req, res) {
+		Promise.resolve(Models.Project.findOne({ _id: req.params.id }).exec())
+			.then(function (project) {
+				return res.render('app/projects/project-add.jade', { clientId: req.params.clientId, project: project });
+			});
+	}
 };
 
 module.exports = projects;

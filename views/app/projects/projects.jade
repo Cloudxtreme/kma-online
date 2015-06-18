@@ -20,13 +20,23 @@ block content
         a(href="/app/clients" class="waves-effect waves-blue btn-flat right bottom blue-text")
           i(class="mdi-navigation-arrow-back left")
           | Back
-          
-    div(class="divider red lighten-2")
-    br
+    
+    if client && client.projects && client.projects.length > 1
+      div(class="row")
+        div(class="col s12 m6 offset-m6")
+          div(class="input-field")
+            input(id="search" type="search" required)
+            label(for="search")
+              i(class="mdi-action-search")
+              | &nbsp;&nbsp;Filter
+            i(class="mdi-navigation-close")
+                  
+    //div(class="divider red lighten-2")
+    //br
          
     if (client && client.projects && client.projects.length > 0)
       each project in client.projects
-        div(class="row")
+        div(class="row project-row", project=project.name)
           div(class="col s12")
             a(href="#")
               div(class="card white")
@@ -41,13 +51,13 @@ block content
                           if project.location
                             span(class="white-text")= project.location
                 div(class="card-action")
-                  a(href='/app/projects/edit/' + project._id, class="right") Edit Project
+                  a(href='/app/clients/' + client._id + '/projects/edit/' + project._id, class="right") Edit Project
                   //a(href='#' class="right") View Client Info
                   a(href="#" class="right") View Project
     else
-      div(class="row")
+      div(class="row", style="margin-top: 15%")
         div(class="col s12")
           h4(class="grey-text text-lighten-1 center-align") No projects to display
 
 block scripts
-  script(src="/js/app/projects/projects.js")
+  script(src="/js/app/projects/project.js")

@@ -37,6 +37,7 @@ module.exports = function() {
   
   router.get('/app/clients/:clientId/projects', app.projects.index);
   router.get('/app/clients/:clientId/projects/add', app.projects.add);
+  router.get('/app/clients/:clientId/projects/edit/:id', app.projects.edit);
   
   /* API routes */
   router.get('/api/v1/user/:id', users.getOne);
