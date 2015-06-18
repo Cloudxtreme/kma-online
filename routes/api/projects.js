@@ -58,7 +58,8 @@ var projects = {
 			.then(function (dbProject) {
 				dbProject.name = req.body.name;
 				dbProject.location = req.body.location;
-				console.log('saving');
+				dbProject.op = req.body.op;
+				console.log('saving project');
 				return Promise.resolve(dbProject.save());
 			})
 			.then(function (updatedProject) {

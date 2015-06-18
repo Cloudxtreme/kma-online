@@ -41,9 +41,23 @@ var clients = {
 	
 	update: function (req, res) {
 		var id = req.body._id;
+		var nClient = req.body;
+		
 		console.log('updating client with id of ' + id);
 		
-		Promise.resolve(Models.Client.update({ _id: id }, req.body).exec())
+		Promise.resolve(Models.Client.findOne({ _id: id }).exec())
+			.then(function (dbClient) {
+				dbClient.name    = nClient.name;
+				dbClient.company = nClient.company;
+				dbClient.email   = nClient.email;
+				dbClient.phone   = nClient.phone;
+				dbClient.addr1   = nClient.addr1;
+				dbClient.addr2   = nClient.addr2;
+				dbClient.city    = nClient.city;
+				dbClient.state   = nClient.state;
+				dbClient.zip     = nClient.zip;
+				return Promise.resolve(dbClient.save());
+			})
 			.then(function (updatedClient) {
 				res.status(200).send('Success');
 			})

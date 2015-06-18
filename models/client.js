@@ -1,7 +1,8 @@
 var Promise = require('bluebird');
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-	autoIncrement = require('mongoose-auto-increment');
+	autoIncrement = require('mongoose-auto-increment'),
+	createdModifiedPlugin = require('mongoose-createdmodified').createdModifiedPlugin;
  
 var ClientSchema = new Schema({
     name: { type: String, required: true, index: { unique: true } },
@@ -41,5 +42,6 @@ ClientSchema.methods.getAddressShort = function() {
 };
 
 ClientSchema.plugin(autoIncrement.plugin, 'Client');
+ClientSchema.plugin(createdModifiedPlugin, { index: true });
 
 module.exports = mongoose.model('Client', ClientSchema);

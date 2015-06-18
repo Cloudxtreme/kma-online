@@ -31,11 +31,12 @@ module.exports = function() {
   /* Application routes */
   router.get('/app', app.index);
   router.get('/app/logout', auth.logoutApp);
-  router.get('/app/clients', app.clients.index);
+  router.get('/app/clients', app.clients.all);
+  router.get('/app/clients/:id', app.clients.single);
   router.get('/app/clients/add', app.clients.add);
   router.get('/app/clients/edit/:id', app.clients.edit);
   
-  router.get('/app/clients/:clientId/projects', app.projects.index);
+  router.get('/app/clients/:clientId/projects/:id', app.projects.single);
   router.get('/app/clients/:clientId/projects/add', app.projects.add);
   router.get('/app/clients/:clientId/projects/edit/:id', app.projects.edit);
   

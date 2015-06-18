@@ -2,14 +2,26 @@ var Promise = require('bluebird');
 var Models  = require('../../models')
 
 var projects = {
-	index: function (req, res) {
+	single: function (req, res) {
 		var clientId = req.params.clientId;
+		var id       = req.params.id;
+		var client   = null;
+		
 		Promise.resolve(Models.Client.findOne({ _id: clientId })
-			.populate({path:'projects', options:{sort:{'modified':-1}}})
-			.exec())
-			.then(function (client) {
-				console.log('client:', client);
-				return res.render('app/projects/projects.jade', { client: client });
+			.select('name').exec())
+			.then(function (dbClient){
+				if (!dbClient) throw new Error("Unable to find client[" + clientId + "] in database.");
+				
+				client = dbClient;
+				return Promise.resolve(Models.Project.findOne({ _id: id }).exec())	
+			})
+			.then(function (project) {
+				if (!project) throw new Error("Unable to find project[" + id + "] in database");
+				
+				return res.render("app/projects/project.jade", {client: client, project: project});
+			})
+			.catch(function (err) {
+				res.status(400).send(err);
 			});
 	},
 	

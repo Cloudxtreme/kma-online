@@ -14,11 +14,13 @@ $(document).ajaxError(function (event, xhr, settings, thrownError) {
 function addButtonClicked () {
   if (!validateName()) return;
   if (!validateLocation()) return;
+  if (!validateOP()) return;
   
   var newProject = {
     _client: clientId,
     name: $("#name").val(),
     location: $("#location").val(),
+    op: parseOP(),
     isActive: (project) ? project.isActive : true
   };
   
@@ -35,7 +37,7 @@ function addButtonClicked () {
       data: newProject,
       type: 'PUT',
       success: function (res) {
-        window.location = "/app/clients/" + clientId + "/projects";
+        window.location = "/app/clients/" + clientId;
       }
     });
   }
@@ -68,4 +70,44 @@ function validateLocation () {
   
   $('#location').removeClass("invalid");
   return true;
+}
+
+/*
+ * Validates the Overhead and Profit input. Makes sure it's a proper
+ * float within the range [0, 100].
+ */
+function validateOP () {
+  if ( !$('#op').val() ) {
+    $('#op').val("0.00%");
+    return true;
+  }
+  
+  var parsed = parseOP();
+  if ( !isNaN(parsed) && parsed >= 0 && parsed <= 1 ) {
+    
+    $('#op').removeClass("invalid");
+    return true;
+    
+  } else {
+    
+    $('#message').html("Invalid Overhead and Percentage");
+    $('#op').addClass("invalid");
+    return false;
+    
+  }
+}
+
+/*
+ * Removes commas and percentage signs and attempts to parse to a float.
+ * Divides by 100 to get the percentage in decimal form.
+ */
+function parseOP () {
+  var s = $('#op').val();
+ 
+  s = s.replace(/,|\$|\%/g, "");
+  
+  var parsed = parseFloat(s);
+  parsed = parsed / 100.0;
+  
+  return parsed;
 }

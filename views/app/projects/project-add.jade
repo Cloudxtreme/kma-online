@@ -11,7 +11,7 @@ block content
       div(class="col s7")
         h4(class="red-text lighten-2 thin")= (!project) ? "Add a Project" : "Edit Project"
       div(class="col s5")
-        a(href="/app/clients/" + clientId + "/projects" class="waves-effect waves-blue btn-flat right bottom blue-text")
+        a(href="/app/clients/" + clientId, class="waves-effect waves-blue btn-flat right bottom blue-text")
           i(class="mdi-navigation-arrow-back left")
           | Back
     div(class="row")
@@ -26,11 +26,15 @@ block content
               div(class="input-field col s12")
                 input(id="location", type="text", class="validate", value=(!project) ? "" : project.location)
                 label(for="location") Project Location
+            div(class="row")
+              div(class="input-field col s12")
+                input(id="op", type="text", class="validate", value=(!project) ? "0.00%" : project.getOPString())
+                label(for="op") Overhead & Profit
             
             div(class="row", style="margin-top: 20px")
               div(class="col s12")
                 span(id="message", class="red-text text-lighten-2 left")
-                a(id="btn-add", class="right waves-effect waves-light btn")
+                a(id="btn-add", class="right blue waves-effect waves-light btn")
                   i(class=((!project) ? "mdi-content-add" : "mdi-content-save") + " right")
                   = (!project) ? "Add" : "Save"
 

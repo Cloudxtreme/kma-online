@@ -1,0 +1,22 @@
+extends ../../layout.jade
+block title
+  title= project.name
+  
+block links
+  link(type="text/css", rel="stylesheet", href="/css/app/projects/projects.css")
+
+block content
+  div(class="container")
+    div(class="fixed-action-btn" style="bottom: 45px; right: 45px;")
+      a(href="projects/add", class="btn-floating btn-large waves-effect waves-light red lighten-2")
+        i(class="large mdi-content-add")
+        
+    div(class="row")
+      div(class="col s7")
+        h4(class="red-text text-lighten-2 thin")
+          = project.name + " > " 
+          | Invoices
+      div(class="col s5")
+        a(href="/app/clients/" + client._id, class="waves-effect waves-blue btn-flat right bottom blue-text")
+          i(class="mdi-navigation-arrow-back left")
+          | Back

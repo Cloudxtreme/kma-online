@@ -1,6 +1,6 @@
 extends ../../layout.jade
 block title
-  title Projects
+  title= client.name
   
 block links
   link(type="text/css", rel="stylesheet", href="/css/app/projects/projects.css")
@@ -38,7 +38,7 @@ block content
       each project in client.projects
         div(class="row project-row", project=project.name)
           div(class="col s12")
-            a(href="#")
+            a(href="/app/clients/" + client._id + "/projects/" + project._id)
               div(class="card white")
                 div(class="card-content blue lighten-2")
                   div(class="row")
@@ -53,7 +53,7 @@ block content
                 div(class="card-action")
                   a(href='/app/clients/' + client._id + '/projects/edit/' + project._id, class="right") Edit Project
                   //a(href='#' class="right") View Client Info
-                  a(href="#" class="right") View Project
+                  a(href="/app/clients/" + client._id + "/projects/" + project._id, class="right") View Project
     else
       div(class="row", style="margin-top: 15%")
         div(class="col s12")
