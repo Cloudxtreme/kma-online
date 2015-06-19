@@ -3,7 +3,7 @@ var client  = require('./client.js'    );
 var project = require('./project.js'   );
 var worker  = require('./worker.js'    );
 var invoice = require('./invoice.js'   );
-var labor   = require('./LaborEntry.js');
+var labor   = require('./laborEntry.js');
 var items   = require('./itemEntry.js' );
 
 var models = {
