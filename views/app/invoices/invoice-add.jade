@@ -1,0 +1,37 @@
+extends ../../layout.jade
+block title
+  title= (!invoice) ? "Add an Invoice" : "Edit Invoice"
+  
+block links
+  link(type="text/css", rel="stylesheet", href="/css/app/clients/clients.css")
+
+block content
+  div(class="container container-small")
+    div(class="row")
+      div(class="col s7")
+        h4(class="red-text lighten-2 thin")= (!invoice) ? "Add an Invoice" : "Edit Invoice"
+      div(class="col s5")
+        a(href="/app/clients/" + clientId + '/projects/' + projectId, class="waves-effect waves-blue btn-flat right bottom blue-text")
+          i(class="mdi-navigation-arrow-back left")
+          | Back
+    div(class="row")
+      div(class="col s12")
+        div(class="card white")
+          div(class="card-content")
+            div(class="row")
+              div(class="input-field col s12")
+                input(id="name", type="text", class="validate", value=(!invoice) ? "" : invoice.name)
+                label(for="name") Invoice Name
+            
+            div(class="row", style="margin-top: 20px")
+              div(class="col s12")
+                span(id="message", class="red-text text-lighten-2 left")
+                a(id="btn-add", class="right blue waves-effect waves-light btn")
+                  i(class=((!invoice) ? "mdi-content-add" : "mdi-content-save") + " right")
+                  = (!invoice) ? "Add" : "Save"
+
+block scripts
+  script(type='text/javascript').
+    var clientId = !{clientId}
+    var invoice = !{JSON.stringify(invoice)}
+  script(src="/js/app/invoices/invoice-add.js")

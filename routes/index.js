@@ -1,11 +1,12 @@
-var express = require('express');
-var router  = express.Router();
+var express  = require('express');
+var router   = express.Router();
 
-var auth    = require('./auth.js');
+var auth     = require('./auth.js');
 var users    = require('./api/users.js');
 var clients  = require('./api/clients.js');
 var projects = require('./api/projects.js');
-var app     = require('./app');
+var invoices = require('./api/invoices.js');
+var app      = require('./app');
 
 module.exports = function() {
   
@@ -32,13 +33,16 @@ module.exports = function() {
   router.get('/app', app.index);
   router.get('/app/logout', auth.logoutApp);
   router.get('/app/clients', app.clients.all);
-  router.get('/app/clients/:id', app.clients.single);
   router.get('/app/clients/add', app.clients.add);
-  router.get('/app/clients/edit/:id', app.clients.edit);
+  router.get('/app/clients/:id', app.clients.single);
+  router.get('/app/clients/:id/edit', app.clients.edit);
   
-  router.get('/app/clients/:clientId/projects/:id', app.projects.single);
   router.get('/app/clients/:clientId/projects/add', app.projects.add);
-  router.get('/app/clients/:clientId/projects/edit/:id', app.projects.edit);
+  router.get('/app/clients/:clientId/projects/:id', app.projects.single);
+  router.get('/app/clients/:clientId/projects/:id/edit', app.projects.edit);
+  
+  router.get('/app/clients/:clientId/projects/:projectId/invoices/add', app.invoices.add);
+  router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/edit', app.invoices.edit);
   
   /* API routes */
   router.get('/api/v1/user/:id', users.getOne);
@@ -52,6 +56,10 @@ module.exports = function() {
   router.get('/api/v1/projects', projects.getAll);
   router.post('/api/v1/projects', projects.create);
   router.put('/api/v1/projects', projects.update);
+  
+  router.get('/api/v1/invoices/:id', invoices.getOne);
+  router.get('/api/v1/invoices', invoices.getAll);
+  router.post('/api/v1/invoices', invoices.create);
 
   return router;
 };

@@ -11,9 +11,10 @@ var projects = {
 			.select('name').exec())
 			.then(function (dbClient){
 				if (!dbClient) throw new Error("Unable to find client[" + clientId + "] in database.");
-				
 				client = dbClient;
-				return Promise.resolve(Models.Project.findOne({ _id: id }).exec())	
+				return Promise.resolve(Models.Project.findOne({ _id: id })
+					.populate({ path: 'invoices', options: { sort: { 'date': -1 } } })
+					.exec());
 			})
 			.then(function (project) {
 				if (!project) throw new Error("Unable to find project[" + id + "] in database");
@@ -26,6 +27,7 @@ var projects = {
 	},
 	
 	add: function (req, res) {
+		console.log('here');
 		return res.render('app/projects/project-add.jade', { clientId: req.params.clientId, project: null });
 	},
 	

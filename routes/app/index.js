@@ -6,8 +6,9 @@ var index = {
 		res.render('app/index');
 	},
 	
-	clients: require('./clients.js'),
-	projects: require('./projects.js')
+	clients:  require('./clients.js'),
+	projects: require('./projects.js'),
+	invoices: require('./invoices.js')
 };
 
 module.exports = index;

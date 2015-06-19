@@ -14,7 +14,7 @@ var ClientSchema = new Schema({
 	city: { type: String, required: false },
 	state: { type: String, required: false },
 	zip: { type: Number, required: false },
-	projects: [{ type: Schema.Types.Number, ref: 'Project' }]
+	projects: [{ type: Number, ref: 'Project' }]
 });
 
 ClientSchema.methods.getPhoneString = function() {

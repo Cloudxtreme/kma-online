@@ -59,11 +59,11 @@ block content
                           div(class="col s12 right-align")
                             span= client.getAddressShort()
                 div(class="card-action")
-                  a(href='/app/clients/edit/' + client._id, class="right") Edit Client
+                  a(href='/app/clients/' + client._id + '/edit', class="right") Edit Client
                   //a(href='#' class="right") View Client Info
                   a(href="/app/clients/" + client._id, class="right") View Projects
     else
-      div(class="row")
+      div(class="row", style="margin-top: 15%")
         div(class="col s12")
           h4(class="grey-text text-lighten-1 center-align") No clients to display
 

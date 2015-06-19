@@ -8,7 +8,7 @@ block links
 block content
   div(class="container")
     div(class="fixed-action-btn" style="bottom: 45px; right: 45px;")
-      a(href="projects/add", class="btn-floating btn-large waves-effect waves-light red lighten-2")
+      a(href=client._id + "/projects/add", class="btn-floating btn-large waves-effect waves-light red lighten-2")
         i(class="large mdi-content-add")
         
     div(class="row")
@@ -54,7 +54,7 @@ block content
                           if project.location
                             span(class="white-text")= project.location
                 div(class="card-action")
-                  a(href='/app/clients/' + client._id + '/projects/edit/' + project._id, class="right") Edit Project
+                  a(href='/app/clients/' + client._id + '/projects/' + project._id + '/edit', class="right") Edit Project
                   //a(href='#' class="right") View Client Info
                   a(href="/app/clients/" + client._id + "/projects/" + project._id, class="right") View Project
     else
