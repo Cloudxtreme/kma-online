@@ -25,7 +25,7 @@ var clients = {
 	},
 	
 	add: function (req, res) {
-		return res.render('app/clients/client-add.jade');
+		return res.render('app/clients/client-add.jade', { client: null });
 	},
 	
 	edit: function (req, res) {
