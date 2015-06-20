@@ -8,7 +8,8 @@ var index = {
 	
 	clients:  require('./clients.js'),
 	projects: require('./projects.js'),
-	invoices: require('./invoices.js')
+	invoices: require('./invoices.js'),
+	utils:    require('./utils.js')
 };
 
 module.exports = index;

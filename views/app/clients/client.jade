@@ -20,7 +20,7 @@ block content
           i(class="mdi-navigation-arrow-back left")
           | Back
     
-    if client && client.projects && client.projects.length > 1
+    if client && client.projects && client.projects.length > 0
       div(class="row")
         div(class="col s12")
           h5(class="grey-text thin") Projects
@@ -63,4 +63,4 @@ block content
           h4(class="grey-text text-lighten-1 center-align") No projects to display
 
 block scripts
-  script(src="/js/app/projects/project.js")
+  script(src="/js/app/client/client.js")

@@ -29,7 +29,12 @@ block content
             div(class="row")
               div(class="input-field col s12")
                 input(id="op", type="text", class="validate", value=(!project) ? "0.00%" : project.getOPString())
-                label(for="op") Overhead & Profit
+                label(for="op") Default Overhead & Profit
+                
+            div(class="row")
+              div(class="input-field col s12")
+                input(id="sv", type="text", class="validate", value=(!project) ? "$0.00" : project.getSVString())
+                label(for="sv") Default Supervision Cost
             
             div(class="row", style="margin-top: 20px")
               div(class="col s12")

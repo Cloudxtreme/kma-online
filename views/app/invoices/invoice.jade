@@ -1,0 +1,46 @@
+extends ../../layout.jade
+block title
+  title= "Invoice - " + invoice.getDateString()
+  
+block links
+  link(type="text/css", rel="stylesheet", href="/css/app/clients/clients.css")
+  //link(type="text/css", rel="stylesheet", href="/css/app/invoices/invoice.css")
+
+block content
+  div(class="container")
+    div(class="row")
+      div(class="col s7")
+        h4(class="red-text lighten-2 thin")= project.name + " - Invoice " + invoice.getDateString()
+      div(class="col s5")
+        a(href="/app/clients/" + clientId + '/projects/' + project._id, class="waves-effect waves-blue btn-flat right bottom blue-text")
+          i(class="mdi-navigation-arrow-back left")
+          | Back
+    
+    br
+    div(class="row")
+      div(class="col s12")
+        ul(class="tabs z-depth-1")
+          li(class="tab col s3")
+            a(href="#overview") Overview
+          li(class="tab col s3")
+            a(href="#labor") Labor
+          li(class="tab col s3")
+            a(href="#items") Items
+          li(class="tab col s3")
+            a(href="#additional") Additional Items
+            
+    div(id="overview", class="row")
+      div(class="col s12")
+        br
+        div(class="row")
+          div(class="col s7")
+            div(class="card white")
+              div(class="card-content")
+                span(class="card-title grey-text") Overview
+          div(class="col s5")
+            div(class="card white")
+              div(class="card-content")
+                span(class="card-title green-text text-lighten-2 center-align") Cost Breakdown
+              div(class="card-content green lighten-2 white-text")
+                span test
+      

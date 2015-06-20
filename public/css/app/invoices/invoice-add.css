@@ -1,0 +1,7 @@
+.card {
+	overflow: visible;
+}
+
+.dropdown-content {
+	z-index: 3;
+}

@@ -27,7 +27,6 @@ var projects = {
 	},
 	
 	add: function (req, res) {
-		console.log('here');
 		return res.render('app/projects/project-add.jade', { clientId: req.params.clientId, project: null });
 	},
 	

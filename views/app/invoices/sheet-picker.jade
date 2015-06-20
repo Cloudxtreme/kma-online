@@ -1,0 +1,16 @@
+br
+div(id="ws-panel", class="row", path=path)
+  div(class="input-field col s12")
+    select(id='select-labor')
+      option(value='', selected, disabled) Select a sheet...
+      each sheetName in sheetNames
+        option(value=sheetName)= sheetName
+    label QuickBooks® Labor/Time Items Worksheet
+    br
+
+  div(class="input-field col s12")
+    select(id='select-items')
+      option(value='', selected, disabled) Select a sheet...
+      each sheetName in sheetNames
+        option(value=sheetName)= sheetName
+    label QuickBooks® Item Cost Worksheet

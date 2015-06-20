@@ -1,3 +1,4 @@
+var multer   = require('multer');
 var express  = require('express');
 var router   = express.Router();
 
@@ -42,7 +43,13 @@ module.exports = function() {
   router.get('/app/clients/:clientId/projects/:id/edit', app.projects.edit);
   
   router.get('/app/clients/:clientId/projects/:projectId/invoices/add', app.invoices.add);
+  router.get('/app/clients/:clientId/projects/:projectId/invoices/:id', app.invoices.single);
   router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/edit', app.invoices.edit);
+  
+  router.use('/app/utils/ws-selector', multer({
+    dest: "./uploads/"
+  }));
+  router.post('/app/utils/ws-selector', app.utils.wsSelector);
   
   /* API routes */
   router.get('/api/v1/user/:id', users.getOne);
@@ -60,6 +67,7 @@ module.exports = function() {
   router.get('/api/v1/invoices/:id', invoices.getOne);
   router.get('/api/v1/invoices', invoices.getAll);
   router.post('/api/v1/invoices', invoices.create);
+  router.put('/api/v1/invoices', invoices.update);
 
   return router;
 };

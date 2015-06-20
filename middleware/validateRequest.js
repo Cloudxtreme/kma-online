@@ -14,6 +14,11 @@ module.exports = function(req, res, next) {
     console.log('User is already authenticated.');
     return next();
   }
+  
+  if (process.env.NODE_ENV != "production"){
+    console.log('In production mode, letting you pass.'); 
+    return next();
+  }
  
   var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
   var key = (req.body && req.body.x_key) || (req.query && req.query.x_key) || req.headers['x-key'];

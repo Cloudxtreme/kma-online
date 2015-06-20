@@ -15,12 +15,14 @@ function addButtonClicked () {
   if (!validateName()) return;
   if (!validateLocation()) return;
   if (!validateOP()) return;
+  if (!validateSV()) return;
   
   var newProject = {
     _client: clientId,
     name: $("#name").val(),
     location: $("#location").val(),
     op: parseOP(),
+    sv: parseSV(),
     isActive: (project) ? project.isActive : true
   };
   
@@ -86,12 +88,39 @@ function validateOP () {
   if ( !isNaN(parsed) && parsed >= 0 && parsed <= 1 ) {
     
     $('#op').removeClass("invalid");
+    $('#message').html('');
     return true;
     
   } else {
     
     $('#message').html("Invalid Overhead and Percentage");
     $('#op').addClass("invalid");
+    return false;
+    
+  }
+}
+
+/*
+ * Validates the default superivion cost input. Makes sure it's a proper
+ * float.
+ */
+function validateSV () {
+  if ( !$('#sv').val() ) {
+    $('#sv').val("$0.00");
+    return true;
+  }
+  
+  var parsed = parseSV();
+  if ( !isNaN(parsed) && parsed >= 0 ) {
+    
+    $('#sv').removeClass("invalid");
+    $('#message').html('');
+    return true;
+    
+  } else {
+    
+    $('#message').html("Invalid Supervision Cost");
+    $('#sv').addClass("invalid");
     return false;
     
   }
@@ -108,6 +137,19 @@ function parseOP () {
   
   var parsed = parseFloat(s);
   parsed = parsed / 100.0;
+  
+  return parsed;
+}
+
+/*
+ * Removes commas and dollar signs and attempts to parse to a float.
+ */
+function parseSV () {
+  var s = $('#sv').val();
+ 
+  s = s.replace(/,|\$|\%/g, "");
+  
+  var parsed = parseFloat(s);
   
   return parsed;
 }

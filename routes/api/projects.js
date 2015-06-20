@@ -59,6 +59,7 @@ var projects = {
 				dbProject.name = req.body.name;
 				dbProject.location = req.body.location;
 				dbProject.op = req.body.op;
+				dbProject.sv = req.body.sv;
 				console.log('saving project');
 				return Promise.resolve(dbProject.save());
 			})

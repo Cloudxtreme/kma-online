@@ -4,11 +4,11 @@ $(document).ready(function () {
   $('#search').keyup(function(e) {
     var s = $(this).val();
     
-    $('.invoice-row').each(function () {
+    $('.project-row').each(function () {
       var row = $(this);
-      var invoiceName = $(row).attr('invoice').toLowerCase();
+      var projectName = $(row).attr('project').toLowerCase();
       
-      if (invoiceName.indexOf(s) < 0)
+      if (projectName.indexOf(s) < 0)
         $(row).hide();
       else 
         $(row).show();
@@ -17,9 +17,8 @@ $(document).ready(function () {
   
   $('#search').blur(function () {
     $(this).val("");
-    $('.invoice-row').each(function () {
+    $('.project-row').each(function () {
       $(this).show();
     });
   });
 });
-

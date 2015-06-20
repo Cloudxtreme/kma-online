@@ -4,6 +4,7 @@ block title
   
 block links
   link(type="text/css", rel="stylesheet", href="/css/app/clients/clients.css")
+  link(type="text/css", rel="stylesheet", href="/css/app/invoices/invoice-add.css")
 
 block content
   div(class="container container-small")
@@ -11,7 +12,7 @@ block content
       div(class="col s7")
         h4(class="red-text lighten-2 thin")= (!invoice) ? "Add an Invoice" : "Edit Invoice"
       div(class="col s5")
-        a(href="/app/clients/" + clientId + '/projects/' + projectId, class="waves-effect waves-blue btn-flat right bottom blue-text")
+        a(href="/app/clients/" + clientId + '/projects/' + project._id, class="waves-effect waves-blue btn-flat right bottom blue-text")
           i(class="mdi-navigation-arrow-back left")
           | Back
     div(class="row")
@@ -20,18 +21,40 @@ block content
           div(class="card-content")
             div(class="row")
               div(class="input-field col s12")
-                input(id="name", type="text", class="validate", value=(!invoice) ? "" : invoice.name)
-                label(for="name") Invoice Name
+                input(id="date", type="date", class="datepicker", value=(!invoice) ? "" : invoice.getDateString())
+                label(for="date", class="active") Invoice Date
+                
+            div(class="row")
+              div(class="input-field col s12")
+                input(id="op", type="text", class="validate", value=(!invoice) ? project.getOPString() : invoice.getOPString())
+                label(for="op") Overhead & Percentage
+                
+            div(class="row")
+              div(class="input-field col s12")
+                input(id="sv", type="text", class="validate", value=(!invoice) ? project.getSVString() : invoice.getSVString())
+                label(for="sv") Supervision Cost    
             
+            if (!invoice)
+              br
+              span(class="grey-text text-lighten-1") Select your QuickBooks® Excel data
+              div(class="file-field input-field")
+                input(class="file-path validate" type="text")
+                div(class="btn red lighten-2")
+                  span File
+                  input(id="file", type="file")
+                  
+              div(id="ws-select")
+      
             div(class="row", style="margin-top: 20px")
               div(class="col s12")
                 span(id="message", class="red-text text-lighten-2 left")
-                a(id="btn-add", class="right blue waves-effect waves-light btn")
+                a(id="btn-add", class="right btn disabled")
                   i(class=((!invoice) ? "mdi-content-add" : "mdi-content-save") + " right")
                   = (!invoice) ? "Add" : "Save"
-
+                  
 block scripts
   script(type='text/javascript').
     var clientId = !{clientId}
+    var project = !{JSON.stringify(project)}
     var invoice = !{JSON.stringify(invoice)}
   script(src="/js/app/invoices/invoice-add.js")

@@ -20,7 +20,7 @@ block content
           i(class="mdi-navigation-arrow-back left")
           | Back
           
-    if project && project.invoices && project.invoices.length > 1
+    if project && project.invoices && project.invoices.length > 0
       div(class="row")
         div(class="col s12")
           h5(class="grey-text thin") Invoices
@@ -36,7 +36,7 @@ block content
             
     if (project && project.invoices && project.invoices.length > 0)
       each invoice in project.invoices
-        div(class="row project-row", invoice=invoice.name)
+        div(class="row invoice-row", invoice=invoice.getDateString())
           div(class="col s12")
             a(href="/app/clients/" + client._id + "/projects/" + project._id + "/invoices/" + invoice._id)
               div(class="card white")
@@ -46,7 +46,13 @@ block content
                       div(class="row")
                         div(class="col s12")
                           span(class="card-title white-text")= invoice.getDateString()
+                div(class="card-action")
+                  a(href='/app/clients/' + client._id + '/projects/' + project._id + '/invoices/' + invoice._id + '/edit', class="right") Edit Invoice
+                  a(href="/app/clients/" + client._id + "/projects/" + project._id + '/invoices/' + invoice._id, class="right") View Invoice
     else
       div(class="row", style="margin-top: 15%")
         div(class="col s12")
           h4(class="grey-text text-lighten-1 center-align") No invoices to display
+          
+block scripts
+  script(src="/js/app/projects/project.js")
