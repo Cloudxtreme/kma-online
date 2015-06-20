@@ -1,6 +1,6 @@
 var Models  = require('../../models');
 var Promise = require('bluebird');
-var excel   = require('xlsx');
+var xlsx    = require('xlsx');
 var fs 		= require('fs');
 
 var invoices = {
@@ -29,7 +29,7 @@ var invoices = {
 		
 		console.log('invoice data:', invoice_data);
 		
-		var workbook = excel.readFile(invoice_data.wbPath);
+		var workbook = xlsx .readFile(invoice_data.wbPath);
 		var laborEntries = parseLaborData(workbook.Sheets[invoice_data.laborSheet]);
 		var itemEntries  = parseItemData(workbook.Sheets[invoice_data.itemsSheet]);
 		
