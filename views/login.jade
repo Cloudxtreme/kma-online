@@ -25,6 +25,7 @@ html(lang='en')
                     input(id="password" name="password" type="password" class="validate")
                     label(for="password") Password
                 button(class="btn waves-effect waves-light right" type="submit" name="action") Login
+                input(type="hidden", name="redirect", value=redirect || "")
             if msg != ""
               div(class="row")
                 div

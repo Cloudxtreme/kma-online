@@ -30,6 +30,9 @@ module.exports = function() {
   /* Public routes */
   router.get('/app/login', auth.displayLogin);
   
+  /* Validate users' sessions for the app */
+  router.all('/app/*', [require('../middleware/validateAppUser')]);
+  
   /* Application routes */
   router.get('/app', app.index);
   router.get('/app/logout', auth.logoutApp);

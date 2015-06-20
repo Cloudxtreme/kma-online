@@ -109,7 +109,8 @@ mongoose.connect(config.mongo_url, function(err) {
       req.logIn(user, function(err) {
         if (err)
           return next(err);
-          
+        if (req.body.redirect)
+          return res.redirect(req.body.redirect);
         return res.redirect('/app/');
       });
       

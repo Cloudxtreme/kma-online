@@ -9,7 +9,11 @@ var auth = {
     var msg;
     msg = req.query.msg || null;
     
-		res.render('login', { msg: req.flash && req.flash('login') });
+    console.log(req.query);
+		res.render('login', { 
+      msg: req.flash && req.flash('login'),
+      redirect: req.query && req.query.redirect
+    });
 	},
   
   logoutApp: function (req, res) {
