@@ -1,6 +1,6 @@
 var Models  = require('../../models');
 var Promise = require('bluebird');
-var xlsx    = require('XLSX');
+var xlsx    = null;//require('xlsx');
 var fs 		= require('fs');
 
 var invoices = {
