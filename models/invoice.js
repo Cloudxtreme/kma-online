@@ -18,24 +18,33 @@ var InvoiceSchema = new Schema({
 
 InvoiceSchema.index({ _project: 1, date: 1 }, { unique: true });
 
-InvoiceSchema.methods.getDateString = function() {
+InvoiceSchema.methods.getDateString = function () {
 	var date = this.date;
 	
 	return (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();
 };
 
-InvoiceSchema.methods.getOPString = function() {
+InvoiceSchema.methods.getOPString = function () {
 	var invoice = this;
 	if (isNaN(invoice.op)) return "0.00%";
 	var opString = '' + (100.0 * invoice.op) + '%';
   	return opString;
 };
 
-InvoiceSchema.methods.getSVString = function() {
+InvoiceSchema.methods.getSVString = function () {
 	var invoice = this;
 	if (isNaN(invoice.sv)) return "$0.00";
 	var svString = '$' + invoice.sv.toFixed(2);
   	return svString;
+};
+
+InvoiceSchema.methods.getItemTotal = function () {
+	return Promise.resolve(this.populate({ path: 'items' }).exec())
+		.then(function (res) {
+			console.log('res:', res);
+			return "yes";
+		});
+	return true;	
 };
 
 InvoiceSchema.plugin(autoIncrement.plugin, 'Invoice');

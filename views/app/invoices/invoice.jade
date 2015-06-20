@@ -42,5 +42,12 @@ block content
               div(class="card-content")
                 span(class="card-title green-text text-lighten-2 center-align") Cost Breakdown
               div(class="card-content green lighten-2 white-text")
-                span test
+                span(id="#item-total") test
+                
+block scripts
+  script(type='text/javascript').
+    var clientId = !{clientId}
+    var project = !{JSON.stringify(project)}
+    var invoice = !{JSON.stringify(invoice)}
+  script(src="/js/app/invoices/invoice.js")
       
