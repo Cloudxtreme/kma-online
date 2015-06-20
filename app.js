@@ -11,7 +11,8 @@ var config        = require('./config')();
 var auth;          
 var querystring   = require('querystring');
 var autoIncrement = require('mongoose-auto-increment');
-var xlsx = require("xlsx");
+var excel = require("excel");
+//var xlsx = require("xlsx");
 
 var express = require('express'),
     app = express();
