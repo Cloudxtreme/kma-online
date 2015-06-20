@@ -28,7 +28,7 @@ function addButtonClicked () {
   
   if (!project)
     $.post('/api/v1/projects/', newProject, function (res) {
-      window.location = "/app/clients/" + clientId + "/projects";
+      window.location = "/app/clients/" + clientId;
     });
   
   else {
