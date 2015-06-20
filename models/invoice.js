@@ -27,7 +27,7 @@ InvoiceSchema.methods.getDateString = function () {
 InvoiceSchema.methods.getOPString = function () {
 	var invoice = this;
 	if (isNaN(invoice.op)) return "0.00%";
-	var opString = '' + (100.0 * invoice.op) + '%';
+	var opString = '' + (100.0 * invoice.op).toFixed(2) + '%';
   	return opString;
 };
 

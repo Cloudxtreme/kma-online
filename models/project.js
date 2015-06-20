@@ -17,7 +17,7 @@ var ProjectSchema = new Schema({
 ProjectSchema.methods.getOPString = function() {
 	var project = this;
 	if (isNaN(project.op)) return "0.00%";
-	var opString = '' + (100.0 * project.op) + '%';
+	var opString = '' + (100.0 * project.op).toFixed(2) + '%';
   	return opString;
 };
 
