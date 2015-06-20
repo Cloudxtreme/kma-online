@@ -20,7 +20,7 @@ var mongoose = require('mongoose'),
     Models;
     
 /* Logger Setup */
-if (process.env.NODE_ENV != 'production')
+//if (process.env.NODE_ENV != 'production')
   app.use(morgan('dev'));
 
 /* Jade View Engine Setup */
