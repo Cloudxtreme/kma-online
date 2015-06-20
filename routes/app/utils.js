@@ -1,6 +1,6 @@
 var Promise = require('bluebird');
 var Models  = require('../../models');
-var xlsx    = null;//require('XLSX');
+var excel   = require('xlsx');
 var fs		= require('fs');
 
 var utils = {
@@ -12,7 +12,7 @@ var utils = {
 			return res.status(400).send("Unable to upload file.");
 
 		try {
-			workbook = xlsx.readFile(file.path);
+			workbook = excel.readFile(file.path);
 			//fs.unlink(file.path);
 			return res.render('app/invoices/sheet-picker.jade', {
 				sheetNames: workbook.SheetNames,
