@@ -48,6 +48,8 @@ module.exports = function() {
   router.get('/app/clients/:clientId/projects/:projectId/invoices/add', app.invoices.add);
   router.get('/app/clients/:clientId/projects/:projectId/invoices/:id', app.invoices.single);
   router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/edit', app.invoices.edit);
+  router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/overview', app.invoices.overview);
+  router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/items', app.invoices.items);
   
   router.use('/app/utils/ws-selector', multer({
     dest: "./uploads/"

@@ -1,14 +1,21 @@
 $(document).ready(function () {
-	console.log(':)');
+	//console.log(':)', invoice);
+	$('#tab-overview').click(showOverviewPage);
+	$('#tab-items'   ).click(showItemsPage);
 	
-	loadTotals();
-})
+	showOverviewPage();
+});
 
-function loadTotals () {
-	console.log('attempting', invoice);
-	console.log(invoice.getDateString())
-//		.then(function (res) {
-//			console.log(res);
-//			$('#item-total').html(res);
-//		})
+function showOverviewPage () {
+	$.get('/app/clients/' + clientId + '/projects/' + project._id + '/invoices/' + 
+		invoice._id + '/overview', function (res) {
+			$('#overview').html(res);
+		});
+}
+
+function showItemsPage () {
+	$.get('/app/clients/' + clientId + '/projects/' + project._id + '/invoices/' + 
+		invoice._id + '/items', function (res) {
+			$('#items').html(res);
+		});
 }

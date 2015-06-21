@@ -8,8 +8,8 @@ var InvoiceSchema = new Schema({
 	_client:     { type: Number,  required: true,  ref: "Client" },
 	_project:    { type: Number,  required: true,  ref: "Project" },
     date:        { type: Date,    required: true,  default: Date.now },
-	op:          { type: Number,  required: false, default: 0 }, // Overhead and profit, stored as float [0-1)
-	sv: 		 { type: Number,  required: false, default: 0 }, // Cost for supervision
+	op:          { type: Number,  required: false, default: 0, get: getDecimal, set: setDecimal }, // Overhead and profit, stored as float [0-1)
+	sv: 		 { type: Number,  required: false, default: 0, get: getDecimal, set: setDecimal }, // Cost for supervision
 	paid: 	     { type: Boolean, required: false, default: false },
 	labor:      [{ type: Number,  required: false, ref: "LaborEntry" }],
 	items:      [{ type: Number,  required: false, ref: "ItemEntry"  }],
@@ -38,14 +38,13 @@ InvoiceSchema.methods.getSVString = function () {
   	return svString;
 };
 
-InvoiceSchema.methods.getItemTotal = function () {
-	return Promise.resolve(this.populate({ path: 'items' }).exec())
-		.then(function (res) {
-			console.log('res:', res);
-			return "yes";
-		});
-	return true;	
-};
+function getDecimal(v) {
+	return parseFloat((v / 100.0).toFixed(2));
+}
+
+function setDecimal(v) {
+	return parseFloat(v.toString(2)) * 100;
+}
 
 InvoiceSchema.plugin(autoIncrement.plugin, 'Invoice');
 InvoiceSchema.plugin(createdModifiedPlugin, { index: true });

@@ -1,0 +1,24 @@
+div(class="col s12")
+  br
+  div(class="row")
+    div(class="col s12")
+      div(class="collection z-depth-1")
+        each item in invoice.items
+          a(href="#" class="collection-item item-row")
+            table
+              //thead
+                tr
+                  th(data-field="category") Category
+                  th(data-field="subcat") Sub Category
+                  th(data-field="date") Date
+                  th(data-field="source") Source
+                  th(data-field="memo") Memo
+                  th(data-field="cost") Cost
+              tbody
+                tr
+                  //td= item.category
+                  //td= item.subcat
+                  td(style="width:15%")= item.getDateString()
+                  //td= item.source
+                  td= item.memo || item.category
+                  td(style="width:15%")= "$" + (item.rate * item.qty).toFixed(2)

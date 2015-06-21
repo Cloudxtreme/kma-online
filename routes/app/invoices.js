@@ -15,8 +15,8 @@ var invoices = {
 				
 				project = dbProject;
 				return Promise.resolve(Models.Invoice.findOne({ _id: id })
-					//.populate({ path: 'labor', options: { sort: { 'name': 1 } } })
-					//.populate({ path: 'items', options: { sort: { 'category': 1 } } })
+					.populate({ path: 'labor', options: { sort: { 'worker'  : 1 } } })
+					.populate({ path: 'items', options: { sort: { 'category': 1 } } })
 					.exec());
 			})
 			.then(function (invoice) {
@@ -73,7 +73,54 @@ var invoices = {
 				console.error('Err:', err);
 				return res.status(400).send(err);
 			});
+	},
+	
+	overview: function (req, res) {
+		var laborTotal = 0,
+			itemsTotal = 0,
+			id = req.params.id;
+		
+		Promise.resolve(Models.Invoice.findOne({ _id: id })
+			.populate({ path: 'labor', options: { sort: { 'worker'  : 1 } } })
+			.populate({ path: 'items', options: { sort: { 'category': 1 } } })
+			.exec())
+			.then(function (invoice) {
+				laborTotal = getLaborTotal(invoice.labor);
+				itemsTotal = getItemsTotal(invoice.items);
+				return res.render('app/invoices/pages/overview.jade', {
+					invoice: invoice,
+					laborTotal: laborTotal,
+					itemsTotal: itemsTotal
+				});
+			});
+	},
+	
+	items: function (req, res) {
+		var id = req.params.id;
+		
+		Promise.resolve(Models.Invoice.findOne({ _id: id })
+			.populate({ path: 'items', options: { sort: { 'category': 1 } } })
+			.exec())
+			.then(function (invoice) {
+				return res.render('app/invoices/pages/items.jade', {
+					invoice: invoice
+				});
+			});
 	}
 };
+
+function getLaborTotal(laborData) {
+	var total = 0;
+	for (var i = 0; i < laborData.length; i++)
+		total += laborData[i].rate * laborData[i].hours;
+	return parseFloat(total.toFixed(2));
+}
+
+function getItemsTotal(itemsData) {
+	var total = 0;
+	for (var i = 0; i < itemsData.length; i++)
+		total += itemsData[i].rate * itemsData[i].qty;
+	return parseFloat(total.toFixed(2));
+}
 
 module.exports = invoices;

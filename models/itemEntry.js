@@ -14,6 +14,12 @@ var ItemEntrySchema = new Schema({
 	qty:      { type: Number, required: false, default: 1 }
 });
 
+ItemEntrySchema.methods.getDateString = function () {
+	var date = this.date;
+	
+	return (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();
+};
+
 ItemEntrySchema.plugin(autoIncrement.plugin, 'ItemEntry');
 
 module.exports = mongoose.model('ItemEntry', ItemEntrySchema);

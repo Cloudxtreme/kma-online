@@ -1,0 +1,66 @@
+div(class="col s12")
+  br
+  div(class="row")
+    div(class="col s7")
+      div(class="card white")
+        div(class="card-content")
+          span(class="card-title grey-text") Overview
+    div(class="col s5")
+      div(class="card white")
+        div(class="card-content")
+          span(class="card-title grey-text center-align") Invoice Breakdown
+        div(class="card-content green lighten-2 white-text")
+          span(class="card-title white-text") Cost
+          br
+          table(class="breakdown-table")
+    
+            tbody
+              tr
+                td Labor
+                td= "$" + laborTotal.toFixed(2)
+              tr
+                td Items
+                td= "$" + itemsTotal.toFixed(2)
+              tr
+                td Additional Items
+                td $2,000.00
+              tr
+                td Supervision
+                td= invoice.getSVString()
+              tr
+                td
+                  br
+                td
+                  br
+              tr
+                td Sub-Total
+                td= laborTotal + itemsTotal + invoice.sv
+              tr
+                td Overhead & Profit
+                td= "$" + (invoice.op * (laborTotal + itemsTotal + invoice.sv)).toFixed(2)
+              tr
+                td Grand Total
+                td $117,000
+              
+        div(class="card-content blue lighten-2 white-text")
+          span(class="card-title white-text") Labor
+          br
+          table(class="breakdown-table")
+            thead
+              tr
+                th(data-field="employee") Employee
+                th(data-field="hours") Hours Worked
+    
+            tbody
+              tr
+                td Kim Nilsen
+                td 102.4
+              tr
+                td Sam Walton
+                td 77
+              tr
+                td Greg
+                td 130.4
+              tr
+                td Tracy McGrady
+                td 35.7
