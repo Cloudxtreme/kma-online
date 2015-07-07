@@ -1,4 +1,4 @@
-var selectedItem = null;
+var selectedAddItem = null;
 
 $(document).ready(function() {
     
@@ -6,12 +6,12 @@ $(document).ready(function() {
     
     $('.item-row').click(function() {
         var itemId = $(this).attr('id');
-        selectedItem = $.grep(invoice.addItems, function(e) { return e._id == itemId })[0];
+        selectedAddItem = $.grep(invoice.addItems, function(e) { return e._id == itemId })[0];
         
-        console.log(selectedItem);
-        $('#category').val(selectedItem.category);
-        $('#rate').val("$" + selectedItem.rate);
-        $('#qty').val(selectedItem.qty);
+        console.log(selectedAddItem);
+        $('#category').val(selectedAddItem.category);
+        $('#rate').val("$" + selectedAddItem.rate);
+        $('#qty').val(selectedAddItem.qty);
     });
     
     $('.modal-trigger').leanModal({
@@ -26,7 +26,7 @@ $(document).ready(function() {
             console.log('Ready');             
         },
         complete: function() { 
-            selectedItem = null;
+            selectedAddItem = null;
             console.log('Done');
         } // Callback for Modal close
     });
@@ -36,7 +36,7 @@ $(document).ready(function() {
 function createItem() {
     console.log('creating item...');
     
-    selectedItem = {
+    selectedAddItem = {
         _invoice: invoice._id,
         category: $('#category').val(),
         rate:     parseRate(),
@@ -45,7 +45,7 @@ function createItem() {
     
     $.ajax({
         url: '/api/v1/itementries/',
-        data: selectedItem,
+        data: selectedAddItem,
         type: 'POST',
         success: function (res) {
             console.log('Create:', res);
@@ -58,22 +58,22 @@ function createItem() {
 }
 
 function saveAddItem() {
-    if (selectedItem == null)
+    if (selectedAddItem == null)
         return createItem();
     
     console.log('saving...');
     console.log('cat: ' + $('#category').val());
-    selectedItem.category = $('#category').val();
-    selectedItem.rate = parseRate();
-    selectedItem.qty = $('#qty').val();
+    selectedAddItem.category = $('#category').val();
+    selectedAddItem.rate = parseRate();
+    selectedAddItem.qty = $('#qty').val();
     
-    var id = selectedItem._id;
-    var catText = selectedItem.category;
-    var costText = "$" + (selectedItem.rate * selectedItem.qty).toFixed(2);
+    var id = selectedAddItem._id;
+    var catText = selectedAddItem.category;
+    var costText = "$" + (selectedAddItem.rate * selectedAddItem.qty).toFixed(2);
     
     $.ajax({
         url: '/api/v1/itementries/',
-        data: selectedItem,
+        data: selectedAddItem,
         type: 'PUT',
         success: function (res) {
             console.log('Update:', res);
