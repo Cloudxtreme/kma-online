@@ -27,3 +27,16 @@ function showAddItemsPage () {
 			$('#add-items').html(res);
 	    });
 }
+
+/*
+ * Removes commas and dollar signs and attempts to parse to a float.
+ */
+function parseRate () {
+  var s = $('#rate').val();
+ 
+  s = s.replace(/,|\$|\%/g, "");
+  
+  var parsed = parseFloat(s);
+  
+  return parsed;
+}

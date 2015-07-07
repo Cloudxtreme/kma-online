@@ -5,7 +5,7 @@ div(class="col s12")
       if invoice.items.length > 0
         div(class="collection z-depth-1")
           each item in invoice.items
-            a(href="#edit-modal" class="collection-item item-row modal-trigger" id=item._id)
+            a(href="#item-edit-modal" class="collection-item item-row modal-trigger" id=item._id)
               table
                 //thead
                   tr
@@ -27,7 +27,7 @@ div(class="col s12")
         h4(class="grey-text center") No items to display.
                   
       <!-- Modal Structure -->
-      div(id="edit-modal" class="modal modal-fixed-footer")
+      div(id="item-edit-modal" class="modal modal-fixed-footer")
         div(class="modal-content")
           h4(class="center red-text text-lighten-2") Modify Item Details
           br
@@ -59,9 +59,9 @@ div(class="col s12")
               label(for="qty" class="active") Quantity
           
         div(class="modal-footer")
-          a(id="save-modal" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue-text") Save
-          a(id="delete-modal" href="#!" class="modal-action waves-effect waves-red btn-flat red-text text-lighten-2") Delete
-          a(id="cancel-modal" href="#!" class="modal-action modal-close waves-effect waves-grey btn-flat grey-text") Cancel
+          a(id="item-save-modal" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue-text") Save
+          a(id="item-delete-modal" href="#!" class="modal-action waves-effect waves-red btn-flat red-text text-lighten-2") Delete
+          a(href="#!" class="modal-action modal-close waves-effect waves-grey btn-flat grey-text") Cancel
           
 script(type='text/javascript').
   var invoice =!{JSON.stringify(invoice)}

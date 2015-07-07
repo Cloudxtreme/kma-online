@@ -21,8 +21,8 @@ $(document).ready(function() {
         in_duration: 300, // Transition in duration
         out_duration: 200, // Transition out duration
         ready: function() { 
-            $('#save-modal').click(saveItem);
-            $('#delete-modal').click(deleteItem);
+            $('#item-save-modal').click(saveItem);
+            $('#item-delete-modal').click(deleteItem);
             
             console.log('Ready');             
         },
@@ -65,17 +65,4 @@ function deleteItem() {
     console.log('deleting...');
     
     
-}
-
-/*
- * Removes commas and dollar signs and attempts to parse to a float.
- */
-function parseRate () {
-  var s = $('#rate').val();
- 
-  s = s.replace(/,|\$|\%/g, "");
-  
-  var parsed = parseFloat(s);
-  
-  return parsed;
 }
