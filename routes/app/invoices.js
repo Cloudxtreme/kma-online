@@ -106,6 +106,19 @@ var invoices = {
 					invoice: invoice
 				});
 			});
+	},
+    
+    addItems: function (req, res) {
+		var id = req.params.id;
+		
+		Promise.resolve(Models.Invoice.findOne({ _id: id })
+			.populate({ path: 'addItems', options: { sort: { 'category': 1 } } })
+			.exec())
+			.then(function (invoice) {
+				return res.render('app/invoices/pages/addItems.jade', {
+					invoice: invoice
+				});
+			});
 	}
 };
 

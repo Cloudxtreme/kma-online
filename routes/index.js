@@ -3,10 +3,7 @@ var express  = require('express');
 var router   = express.Router();
 
 var auth     = require('./auth.js');
-var users    = require('./api/users.js');
-var clients  = require('./api/clients.js');
-var projects = require('./api/projects.js');
-var invoices = require('./api/invoices.js');
+var api      = require('./api');
 var app      = require('./app');
 
 module.exports = function() {
@@ -50,6 +47,7 @@ module.exports = function() {
   router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/edit', app.invoices.edit);
   router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/overview', app.invoices.overview);
   router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/items', app.invoices.items);
+  router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/additems', app.invoices.addItems);
   
   router.use('/app/utils/ws-selector', multer({
     dest: "./uploads/"
@@ -57,22 +55,25 @@ module.exports = function() {
   router.post('/app/utils/ws-selector', app.utils.wsSelector);
   
   /* API routes */
-  router.get('/api/v1/user/:id', users.getOne);
+  router.get('/api/v1/user/:id', api.users.getOne);
   
-  router.get('/api/v1/clients/:id', clients.getOne);
-  router.get('/api/v1/clients', clients.getAll);
-  router.post('/api/v1/clients', clients.create);
-  router.put('/api/v1/clients', clients.update);
+  router.get('/api/v1/clients/:id', api.clients.getOne);
+  router.get('/api/v1/clients', api.clients.getAll);
+  router.post('/api/v1/clients', api.clients.create);
+  router.put('/api/v1/clients', api.clients.update);
   
-  router.get('/api/v1/projects/:id', projects.getOne);
-  router.get('/api/v1/projects', projects.getAll);
-  router.post('/api/v1/projects', projects.create);
-  router.put('/api/v1/projects', projects.update);
+  router.get('/api/v1/projects/:id', api.projects.getOne);
+  router.get('/api/v1/projects', api.projects.getAll);
+  router.post('/api/v1/projects', api.projects.create);
+  router.put('/api/v1/projects', api.projects.update);
   
-  router.get('/api/v1/invoices/:id', invoices.getOne);
-  router.get('/api/v1/invoices', invoices.getAll);
-  router.post('/api/v1/invoices', invoices.create);
-  router.put('/api/v1/invoices', invoices.update);
+  router.get('/api/v1/invoices/:id', api.invoices.getOne);
+  router.get('/api/v1/invoices', api.invoices.getAll);
+  router.post('/api/v1/invoices', api.invoices.create);
+  router.put('/api/v1/invoices', api.invoices.update);
+  
+  router.post('/api/v1/itementries', api.itemEntries.create);
+  router.put('/api/v1/itementries', api.itemEntries.update);
 
   return router;
 };
