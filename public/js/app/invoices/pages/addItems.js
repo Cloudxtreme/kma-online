@@ -38,10 +38,12 @@ function createItem() {
     
     selectedAddItem = {
         _invoice: invoice._id,
-        category: $('#category').val(),
-        rate:     parseRate(),
-        qty:      $('#qty').val()
+        category: $('#add-item-category').val(),
+        rate:     parseRate("#add-item-rate"),
+        qty:      $('#add-item-qty').val()
     };
+    
+    console.log('posting:', selectedAddItem);
     
     $.ajax({
         url: '/api/v1/itementries/',

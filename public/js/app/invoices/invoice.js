@@ -31,8 +31,8 @@ function showAddItemsPage () {
 /*
  * Removes commas and dollar signs and attempts to parse to a float.
  */
-function parseRate () {
-  var s = $('#rate').val();
+function parseRate (div) {
+  var s = $(div).val();
  
   s = s.replace(/,|\$|\%/g, "");
   

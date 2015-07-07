@@ -41,7 +41,7 @@ function saveItem() {
     selectedItem.subcat = $('#subcat').val();
     selectedItem.source = $('#source').val();
     selectedItem.memo = $('#memo').val();
-    selectedItem.rate = parseRate();
+    selectedItem.rate = parseRate("#rate");
     selectedItem.qty = $('#qty').val();
     
     var id = selectedItem._id;
