@@ -1,5 +1,5 @@
 div(class="fixed-action-btn" style="bottom: 45px; right: 45px;")
-  a(id="btn-add-item", href="#edit-modal", class="modal-trigger btn-floating btn-large waves-effect waves-light red lighten-2")
+  a(id="btn-add-item", href="#add-items-modal", class="modal-trigger btn-floating btn-large waves-effect waves-light red lighten-2")
     i(class="large mdi-content-add")
 div(class="col s12")
   br
@@ -8,7 +8,7 @@ div(class="col s12")
       if invoice.addItems.length > 0
         div(class="collection z-depth-1")
           each item in invoice.addItems
-            a(href="#edit-modal" class="collection-item item-row modal-trigger" id=item._id)
+            a(href="#add-items-modal" class="collection-item item-row modal-trigger" id=item._id)
               table
                 tbody
                   tr
@@ -18,7 +18,7 @@ div(class="col s12")
         h4(class="grey-text center") No additional items to display.
         
       <!-- Modal Structure -->
-      div(id="edit-modal" class="modal modal-fixed-footer")
+      div(id="add-items-modal" class="modal modal-fixed-footer")
         div(class="modal-content")
           h4(class="center red-text text-lighten-2") Modify Item Details
           br
