@@ -1,3 +1,6 @@
+div(class="fixed-action-btn" style="bottom: 45px; right: 45px;")
+  a(id="btn-add-item", href="#item-modal", class="modal-trigger btn-floating btn-large waves-effect waves-light red lighten-2 item-modal")
+    i(class="large mdi-content-add")
 div(class="col s12")
   br
   div(class="row")
@@ -5,61 +8,50 @@ div(class="col s12")
       if invoice.items.length > 0
         div(class="collection z-depth-1")
           each item in invoice.items
-            a(href="#item-edit-modal" class="collection-item item-row modal-trigger" id=item._id)
+            a(href="#item-modal" class="collection-item item-row modal-trigger item-modal item-link" id=item._id)
               table
-                //thead
-                  tr
-                    th(data-field="category") Category
-                    th(data-field="subcat") Sub Category
-                    th(data-field="date") Date
-                    th(data-field="source") Source
-                    th(data-field="memo") Memo
-                    th(data-field="cost") Cost
                 tbody
                   tr
-                    //td= item.category
-                    //td= item.subcat
-                    td(style="width:15%")= item.getDateString()
-                    //td= item.source
+                    td(style="width:15%")= (item.date && item.getDateString()) || ""
                     td(id="memo_" + item._id)= item.memo || item.category
                     td(id="cost_" + item._id, style="width:15%")= "$" + (item.rate * item.qty).toFixed(2)
       else
         h4(class="grey-text center") No items to display.
                   
       <!-- Modal Structure -->
-      div(id="item-edit-modal" class="modal modal-fixed-footer")
+      div(id="item-modal" class="modal modal-fixed-footer")
         div(class="modal-content")
           h4(class="center red-text text-lighten-2") Modify Item Details
           br
           div(class="row")
             div(class="input-field col s6")
-              input(id="category", type="text", class="validate")
-              label(for="category" class="active") Category
+              input(id="item-category", type="text", class="validate")
+              label(for="item-category" class="active") Category
             div(class="input-field col s6")
-              input(id="subcat", type="text", class="validate")
-              label(for="subcat" class="active") Sub Category
+              input(id="item-subcat", type="text", class="validate")
+              label(for="item-subcat" class="active") Sub Category
               
           div(class="row")
             div(class="input-field col s6")
-              input(id="source", type="text", class="validate")
-              label(for="source" class="active") Source
+              input(id="item-source", type="text", class="validate")
+              label(for="item-source" class="active") Source
             div(class="input-field col s6")
-              input(id="memo", type="text", class="validate")
-              label(for="memo" class="active") Memo
+              input(id="item-memo", type="text", class="validate")
+              label(for="item-memo" class="active") Memo
               
           div(class="row")
             //div(class="input-field col s4")
               input(id="date", type="date", class="datepicker")
               label(for="date" class="active") Date
             div(class="input-field col s6")
-              input(id="rate", type="text", class="validate")
-              label(for="rate" class="active") Rate
+              input(id="item-rate", type="text", class="validate")
+              label(for="item-rate" class="active") Rate
             div(class="input-field col s6")
-              input(id="qty", type="text", class="validate")
-              label(for="qty" class="active") Quantity
+              input(id="item-qty", type="text", class="validate")
+              label(for="item-qty" class="active") Quantity
           
         div(class="modal-footer")
-          a(id="item-save-modal" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue-text") Save
+          a(id="item-save-modal" href="#!" class="modal-action waves-effect waves-green btn-flat blue-text") Save
           a(id="item-delete-modal" href="#!" class="modal-action waves-effect waves-red btn-flat red-text text-lighten-2") Delete
           a(href="#!" class="modal-action modal-close waves-effect waves-grey btn-flat grey-text") Cancel
           
