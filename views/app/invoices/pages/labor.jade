@@ -1,0 +1,53 @@
+div(class="fixed-action-btn" style="bottom: 45px; right: 45px;")
+  a(id="btn-add-labor", href="#labor-modal", class="modal-trigger btn-floating btn-large waves-effect waves-light red lighten-2 labor-modal")
+    i(class="large mdi-content-add")
+div(class="col s12")
+  br
+  div(class="row")
+    div(class="col s12")
+      if invoice.labor.length > 0
+        div(class="collection z-depth-1")
+          each item in invoice.labor
+            a(href="#labor-modal" class="collection-item item-row modal-trigger labor-modal labor-link" id=item._id)
+              table
+                tbody
+                  tr
+                    td(style="width:15%")= item.worker.name
+                    td(id="laborname_" + item._id)= item.name
+                    td(id="laborcost_" + item._id, style="width:15%")= "$" + (item.worker.billable * item.hours).toFixed(2)
+      else
+        h4(class="grey-text center") No labor to display.
+                  
+      <!-- Modal Structure -->
+      div(id="labor-modal" class="modal modal-fixed-footer")
+        div(class="modal-content")
+          h4(class="center red-text text-lighten-2") Modify Labor Details
+          br
+          div(class="row")
+            div(class="input-field col s6")
+              select
+                each worker in workers
+                  option(id="worker_" + worker._id, value = worker._id)= worker.name  
+              label Worker
+            div(class="input-field col s6")
+              input(id="labor-name", type="text", class="validate")
+              label(for="labor-name" class="active") Item Name
+              
+          div(class="row")
+            div(class="input-field col s6")
+              input(id="labor-rate", type="text", class="validate")
+              label(for="labor-rate" class="disabled") Rate
+            div(class="input-field col s6")
+              input(id="labor-hours", type="text", class="validate")
+              label(for="labor-hours" class="active") Hours
+          
+        div(class="modal-footer")
+          a(id="labor-save-modal" href="#!" class="modal-action waves-effect waves-green btn-flat blue-text") Save
+          a(id="labor-delete-modal" href="#!" class="modal-action waves-effect waves-red btn-flat red-text text-lighten-2") Delete
+          a(href="#!" class="modal-action modal-close waves-effect waves-grey btn-flat grey-text") Cancel
+          
+
+script(type='text/javascript').
+  var invoice =!{JSON.stringify(invoice)}
+  var workers =!{JSON.stringify(workers)}
+script(src="/js/app/invoices/pages/labor.js")

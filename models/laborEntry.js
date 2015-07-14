@@ -7,7 +7,7 @@ var LaborEntrySchema = new Schema({
 	_invoice: { type: Number, required: true,  ref: "Invoice" },
 	name:     { type: String, required: true,  index: { unique: false } },
     worker:   { type: Number, required: true },
-	rate:     { type: Number, required: false, default: 0 },
+	//rate:     { type: Number, required: false, default: 0 },
 	hours:    { type: Number, required: false, default: 0 }
 });
 

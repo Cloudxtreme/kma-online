@@ -1,6 +1,7 @@
 $(document).ready(function () {
 	//console.log(':)', invoice);
 	$('#tab-overview' ).click(showOverviewPage);
+    $('#tab-labor'    ).click(showLaborPage);
 	$('#tab-items '   ).click(showItemsPage);
     $('#tab-add-items').click(showAddItemsPage);
 	
@@ -25,6 +26,13 @@ function showAddItemsPage () {
 	$.get('/app/clients/' + clientId + '/projects/' + project._id + '/invoices/' + 
 		invoice._id + '/additems', function (res) {
 			$('#add-items').html(res);
+	    });
+}
+
+function showLaborPage () {
+	$.get('/app/clients/' + clientId + '/projects/' + project._id + '/invoices/' + 
+		invoice._id + '/labor', function (res) {
+			$('#labor').html(res);
 	    });
 }
 

@@ -6,6 +6,7 @@ var Promise 			  = require('bluebird'),
 var WorkerSchema = new Schema({
 	_project: { type: Number, required: true,  ref: "Project" },
     name:     { type: String, required: true,  index: { unique: true } },
+    billable: { type: Number, required: false, default: 0 },
     wage:     { type: Number, required: false, default: 0 }
 });
 

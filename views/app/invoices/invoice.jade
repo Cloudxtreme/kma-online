@@ -7,7 +7,6 @@ block links
   link(type="text/css", rel="stylesheet", href="/css/app/invoices/invoice.css")
 
 block content
-  div(class="container")
     div(class="row")
       div(class="col s7")
         h4(class="red-text lighten-2 thin")= project.name + " - Invoice " + invoice.getDateString()
@@ -23,13 +22,14 @@ block content
           li(class="tab col s3")
             a(id="tab-overview",  href="#overview") Overview
           li(class="tab col s3")
-            a(href="#labor") Labor
+            a(id="tab-labor" href="#labor") Labor
           li(class="tab col s3")
             a(id="tab-items",     href="#items") Items
           li(class="tab col s3")
             a(id="tab-add-items", href="#add-items") Additional Items
             
     div(id="overview", class="row")
+    div(id="labor", class="row")
     div(id="items", class="row")
     div(id="add-items", class="row")
                 

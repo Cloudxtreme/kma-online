@@ -119,7 +119,36 @@ var invoices = {
 					invoice: invoice
 				});
 			});
-	}
+	},
+    
+    labor: function (req, res) {
+        var id = req.params.id;
+        var dbInvoice;
+        
+        Promise.resolve(Models.Invoice.findOne({ _id: id })
+			.populate({ path: 'labor', options: { sort: { 'worker': 1, 'name': 1 } } })
+			.exec())
+			.then(function (invoice) {
+                var options = {
+                    path: 'labor.worker',
+                    model: 'Worker'
+                };
+            
+                // Populate workers.
+                return Promise.resolve(Models.Invoice
+                    .populate(invoice, options));
+			})
+            .then(function (invoice) {
+               dbInvoice = invoice;
+               return Promise.resolve(Models.Worker.find({ _project: dbInvoice._project }).exec());
+            })
+            .then(function (workers) {
+                return res.render('app/invoices/pages/labor.jade', {
+					invoice: dbInvoice,
+                    workers: workers
+				});
+            })
+    }
 };
 
 function getLaborTotal(laborData) {
