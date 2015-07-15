@@ -4,7 +4,8 @@ var index = {
 	projects:     require('./projects.js'),
 	invoices:     require('./invoices.js'),
     itemEntries:  require('./itemEntries.js'),
-    laborEntries: require('./laborEntries.js')
+    laborEntries: require('./laborEntries.js'),
+    workers:      require('./workers.js')
 };
 
 module.exports = index;

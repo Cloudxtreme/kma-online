@@ -39,7 +39,7 @@ function createWorker() {
         _project : projectId,
         name     : $('#worker-name').val(),
         wage     : parseRate('#worker-wage'),
-        billable : parseRate('#worker-billable'),
+        billable : parseRate('#worker-rate'),
     };
     
     console.log('posting:', selectedWorker);
@@ -54,13 +54,10 @@ function createWorker() {
             $('#worker-modal').closeModal();
             workerModalOnClose();
             showWorkerPage();
-            // $('#cat_' + id).text(catText);
-            // $('#cost_' + id).text(costText); //////// left off around here.
         }
     });
     
 }
-
 
 function saveWorker() {
     if (selectedWorker == null)
@@ -70,24 +67,24 @@ function saveWorker() {
 
     selectedWorker.name     = $('#worker-name').val();
     selectedWorker.wage     = parseRate('#worker-wage');
-    selectedWorker.billable = parseRate('#worker-billable');
+    selectedWorker.billable = parseRate('#worker-rate');
     
     $.ajax({
-        url: '/api/v1/laborentries/',
+        url: '/api/v1/workers/',
         data: selectedWorker,
         type: 'PUT',
         success: function (res) {
             console.log('Update:', res);
             
-            var worker = $.grep(workers, function(e){ return e._id == selectedWorker.worker; })[0];
             var id = selectedWorker._id;
-            var costText = "$" + (worker.billable * selectedWorker.hours).toFixed(2);
+            var wageText = "$" + selectedWorker.wage.toFixed(2);
+            var billableText = "$" + selectedWorker.billable.toFixed(2);
             
-            $('#laborworker_' + id).text(worker.name);
-            $('#laborname_' + id).text(selectedWorker.name);
-            $('#laborcost_' + id).text(costText);
+            $('#workername_' + id).text(selectedWorker.name);
+            $('#workerwage_' + id).text(wageText);
+            $('#workerrate_' + id).text(billableText);
             
-            $('#labor-modal').closeModal();
+            $('#worker-modal').closeModal();
             workerModalOnClose();
         }
     });
@@ -95,8 +92,8 @@ function saveWorker() {
 
 function deleteWorker() {
     console.log('clicked');
-    if (!$("#labor-delete-modal").prop("confirm")) {
-        $("#labor-delete-modal").prop("confirm", "confirm")
+    if (!$("#worker-delete-modal").prop("confirm")) {
+        $("#worker-delete-modal").prop("confirm", "confirm")
             .text("Really delete?")
             .addClass("waves-effect waves-red");
             
@@ -106,12 +103,12 @@ function deleteWorker() {
     console.log('deleting...');
     
     $.ajax({
-        url: '/api/v1/laborentries/' + selectedWorker._id,
+        url: '/api/v1/workers/' + selectedWorker._id,
         type: 'DELETE',
         success: function (res) {
             console.log("Delete:", res);
             
-            $('#labor-modal').closeModal();
+            $('#worker-modal').closeModal();
             workerModalOnClose();
             showWorkerPage();
         }
@@ -122,15 +119,14 @@ function workerModalOnClose() {
     selectedWorker = null;
             
     // Reset the delete button
-    $("#labor-delete-modal").removeProp("confirm")
+    $("#worker-delete-modal").removeProp("confirm")
         .text("Delete")
         .removeClass("waves-effect waves-red");
         
     // Clear the modal inputs.
-    $('#labor-worker').val("");
-    $('#labor-name').val("");
-    $('#labor-rate').val("");
-    $('#labor-hours').val("");
+    $('#worker-name').val("");
+    $('#worker-wage').val("");
+    $('#worker-rate').val("");
         
     console.log('Done');
 }

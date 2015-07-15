@@ -42,7 +42,7 @@ function createLabor() {
         _invoice: invoice._id,
         worker : $('#labor-worker').val(),
         name   : $('#labor-name').val(),
-        hours  : $('#labor-hours').val(),
+        hours  : parseRate('#labor-hours')
     };
     
     console.log('posting:', selectedLabor);

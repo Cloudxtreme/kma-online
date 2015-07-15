@@ -82,6 +82,10 @@ module.exports = function() {
   router.post('/api/v1/laborentries', api.laborEntries.create);
   router.put('/api/v1/laborentries', api.laborEntries.update);
   router.delete('/api/v1/laborentries/:id', api.laborEntries.delete);
+  
+  router.post('/api/v1/workers', api.workers.create);
+  router.put('/api/v1/workers', api.workers.update);
+  router.delete('/api/v1/workers/:id', api.workers.delete);
 
   return router;
 };
