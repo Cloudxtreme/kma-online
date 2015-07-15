@@ -148,6 +148,18 @@ var invoices = {
                     workers: workers
 				});
             })
+    },
+    
+    workers: function(req, res) {
+        var id = req.params.projectId;
+        
+        Promise.resolve(Models.Worker.find({ _project: id }))
+			.then(function (workers) {
+                return res.render('app/invoices/pages/workers.jade', {
+                    projectId: id,
+                    workers: workers
+				});
+            });
     }
 };
 

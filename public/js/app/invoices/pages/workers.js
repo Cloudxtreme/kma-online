@@ -1,102 +1,99 @@
-var selectedLabor = null;
+var selectedWorker = null;
 
 $(document).ready(function() {
-    console.log('Loaded:', invoice);
     console.log('workers:', workers); 
    
-    $('#labor-save-modal').click(saveLabor);
-    $('#labor-delete-modal').click(deleteLabor);
+    $('#worker-save-modal').click(saveWorker);
+    $('#worker-delete-modal').click(deleteWorker);
     
-    $('.labor-link').click(function() {
-        var laborId = $(this).attr('id');
-        selectedLabor = $.grep(invoice.labor, function(e) { return e._id == laborId })[0];
+    $('.worker-link').click(function() {
+        var workerId = $(this).attr('id');
+        selectedWorker = $.grep(workers, function(e) { return e._id == workerId })[0];
         
-        console.log(selectedLabor);
-        $('#labor-worker').val(selectedLabor.worker._id);
-        $('#labor-name').val(selectedLabor.name);
-        $('#labor-rate').val("$" + selectedLabor.worker.billable);
-        $('#labor-hours').val(selectedLabor.hours);
+        console.log(selectedWorker);
+        $('#worker-name').val(selectedWorker.name);
+        $('#worker-wage').val("$" + selectedWorker.wage);
+        $('#worker-rate').val("$" + selectedWorker.billable);
     });
     
-    $('.labor-modal').leanModal({
+    $('.worker-modal').leanModal({
         dismissible: true, // Modal can be dismissed by clicking outside of the modal
         opacity: .5,       // Opacity of modal background
         in_duration: 300,  // Transition in duration
         out_duration: 200, // Transition out duration
         ready: function() { 
-            $('select').material_select();
             console.log('Ready');             
         },
         
         // What happens when the user closes the modal.
         complete: function() { 
-            laborModalOnClose();
+            workerModalOnClose();
         } 
     });
 });
 
-function createLabor() {
-    console.log('creating item...');
+function createWorker() {
+    console.log('creating worker...');
     
-    selectedLabor = {
-        _invoice: invoice._id,
-        worker : $('#labor-worker').val(),
-        name   : $('#labor-name').val(),
-        hours  : $('#labor-hours').val(),
+    selectedWorker = {
+        _project : projectId,
+        name     : $('#worker-name').val(),
+        wage     : parseRate('#worker-wage'),
+        billable : parseRate('#worker-billable'),
     };
     
-    console.log('posting:', selectedLabor);
+    console.log('posting:', selectedWorker);
     
     $.ajax({
-        url: '/api/v1/laborentries/',
-        data: selectedLabor,
+        url: '/api/v1/workers/',
+        data: selectedWorker,
         type: 'POST',
         success: function (res) {
             console.log('Create:', res);
             
-            $('#labor-modal').closeModal();
-            laborModalOnClose();
-            showLaborPage();
+            $('#worker-modal').closeModal();
+            workerModalOnClose();
+            showWorkerPage();
             // $('#cat_' + id).text(catText);
-            // $('#cost_' + id).text(costText);
+            // $('#cost_' + id).text(costText); //////// left off around here.
         }
     });
     
 }
 
 
-function saveLabor() {
-    if (selectedLabor == null)
-        return createLabor();
+function saveWorker() {
+    if (selectedWorker == null)
+        return createWorker();
     
     console.log('saving...');
 
-    selectedLabor.worker     = $('#labor-worker').val();
-    selectedLabor.name       = $('#labor-name').val();
-    selectedLabor.hours      = $('#labor-hours').val();
+    selectedWorker.name     = $('#worker-name').val();
+    selectedWorker.wage     = parseRate('#worker-wage');
+    selectedWorker.billable = parseRate('#worker-billable');
     
     $.ajax({
         url: '/api/v1/laborentries/',
-        data: selectedLabor,
+        data: selectedWorker,
         type: 'PUT',
         success: function (res) {
             console.log('Update:', res);
             
-            var worker = $.grep(workers, function(e){ return e._id == selectedLabor.worker; })[0];
-            var id = selectedLabor._id;
-            var costText = "$" + (worker.billable * selectedLabor.hours).toFixed(2);
+            var worker = $.grep(workers, function(e){ return e._id == selectedWorker.worker; })[0];
+            var id = selectedWorker._id;
+            var costText = "$" + (worker.billable * selectedWorker.hours).toFixed(2);
             
             $('#laborworker_' + id).text(worker.name);
-            $('#laborname_' + id).text(selectedLabor.name);
+            $('#laborname_' + id).text(selectedWorker.name);
             $('#laborcost_' + id).text(costText);
             
             $('#labor-modal').closeModal();
-            laborModalOnClose();
+            workerModalOnClose();
         }
     });
 }
 
-function deleteLabor() {
+function deleteWorker() {
     console.log('clicked');
     if (!$("#labor-delete-modal").prop("confirm")) {
         $("#labor-delete-modal").prop("confirm", "confirm")
@@ -109,20 +106,20 @@ function deleteLabor() {
     console.log('deleting...');
     
     $.ajax({
-        url: '/api/v1/laborentries/' + selectedLabor._id,
+        url: '/api/v1/laborentries/' + selectedWorker._id,
         type: 'DELETE',
         success: function (res) {
             console.log("Delete:", res);
             
             $('#labor-modal').closeModal();
-            laborModalOnClose();
-            showLaborPage();
+            workerModalOnClose();
+            showWorkerPage();
         }
     })
 }
 
-function laborModalOnClose() {
-    selectedLabor = null;
+function workerModalOnClose() {
+    selectedWorker = null;
             
     // Reset the delete button
     $("#labor-delete-modal").removeProp("confirm")

@@ -1,0 +1,57 @@
+div(class="fixed-action-btn" style="bottom: 45px; right: 45px;")
+  a(id="btn-add-worker", href="#worker-modal", class="modal-trigger btn-floating btn-large waves-effect waves-light red lighten-2 worker-modal")
+    i(class="large mdi-content-add")
+div(class="col s12")
+  br
+  div(class="row")
+    div(class="col s12")
+      if workers.length > 0
+        div(style="padding-left: 25px; padding-right: 25px;")
+          table
+            tbody
+              td
+                span Worker Name
+              td(style="width:15%", class="center")
+                span Wage
+              td(style="width:15%", class="center")
+                span Billable Rate
+        div(class="collection z-depth-1")
+          each worker in workers
+            a(href="#worker-modal" class="collection-item item-row modal-trigger worker-modal worker-link" id=worker._id)
+              table
+                tbody
+                  tr
+                    td(id="workername_" + worker._id)= worker.name
+                    td(id="workerwage_" + worker._id, style="width:15%", class="center")= "$" + worker.wage.toFixed(2)
+                    td(id="workerrate_" + worker._id, style="width:15%", class="center")= "$" + worker.billable.toFixed(2)
+      else
+        h4(class="grey-text center") No workers to display.
+                  
+      <!-- Modal Structure -->
+      div(id="worker-modal" class="modal modal-fixed-footer")
+        div(class="modal-content")
+          h4(class="center red-text text-lighten-2") Modify Worker Details
+          br
+          div(class="row")
+            div(class="input-field col s12")
+              input(id="worker-name", type="text", class="validate")
+              label(for="worker-name" class="active") Worker Name
+              
+          div(class="row")
+            div(class="input-field col s6")
+              input(id="worker-wage", type="text", class="validate", disabled)
+              label(for="worker-wage" class="active") Wage
+            div(class="input-field col s6")
+              input(id="worker-rate", type="text", class="validate")
+              label(for="worker-rate" class="active") Billable Rate
+          
+        div(class="modal-footer")
+          a(id="worker-save-modal" href="#!" class="modal-action waves-effect waves-green btn-flat blue-text") Save
+          a(id="worker-delete-modal" href="#!" class="modal-action waves-effect waves-red btn-flat red-text text-lighten-2") Delete
+          a(href="#!" class="modal-action modal-close waves-effect waves-grey btn-flat grey-text") Cancel
+          
+
+script(type='text/javascript').
+  var projectId = !{JSON.stringify(projectId)} 
+  var workers =!{JSON.stringify(workers)}
+script(src="/js/app/invoices/pages/workers.js")

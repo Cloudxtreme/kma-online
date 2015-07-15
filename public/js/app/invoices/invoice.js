@@ -4,6 +4,7 @@ $(document).ready(function () {
     $('#tab-labor'    ).click(showLaborPage);
 	$('#tab-items '   ).click(showItemsPage);
     $('#tab-add-items').click(showAddItemsPage);
+    $('#tab-workers'  ).click(showWorkerPage);
 	
 	showOverviewPage();
 });
@@ -33,6 +34,13 @@ function showLaborPage () {
 	$.get('/app/clients/' + clientId + '/projects/' + project._id + '/invoices/' + 
 		invoice._id + '/labor', function (res) {
 			$('#labor').html(res);
+	    });
+}
+
+function showWorkerPage () {
+	$.get('/app/clients/' + clientId + '/projects/' + project._id + '/invoices/' + 
+		invoice._id + '/workers', function (res) {
+			$('#workers').html(res);
 	    });
 }
 

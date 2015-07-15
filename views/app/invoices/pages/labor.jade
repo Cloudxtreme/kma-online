@@ -12,7 +12,7 @@ div(class="col s12")
               table
                 tbody
                   tr
-                    td(style="width:15%")= item.worker.name
+                    td(id="laborworker_" + item._id, style="width:25%")= item.worker.name
                     td(id="laborname_" + item._id)= item.name
                     td(id="laborcost_" + item._id, style="width:15%")= "$" + (item.worker.billable * item.hours).toFixed(2)
       else
@@ -25,7 +25,7 @@ div(class="col s12")
           br
           div(class="row")
             div(class="input-field col s6")
-              select
+              select(id="labor-worker")
                 each worker in workers
                   option(id="worker_" + worker._id, value = worker._id)= worker.name  
               label Worker
@@ -35,8 +35,8 @@ div(class="col s12")
               
           div(class="row")
             div(class="input-field col s6")
-              input(id="labor-rate", type="text", class="validate")
-              label(for="labor-rate" class="disabled") Rate
+              input(id="labor-rate", type="text", class="validate", disabled)
+              label(for="labor-rate" class="active") Billable Rate
             div(class="input-field col s6")
               input(id="labor-hours", type="text", class="validate")
               label(for="labor-hours" class="active") Hours

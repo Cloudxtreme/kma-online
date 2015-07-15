@@ -49,6 +49,7 @@ module.exports = function() {
   router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/items', app.invoices.items);
   router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/additems', app.invoices.addItems);
   router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/labor', app.invoices.labor);
+  router.get('/app/clients/:clientId/projects/:projectId/invoices/:id/workers', app.invoices.workers);
   
   router.use('/app/utils/ws-selector', multer({
     dest: "./uploads/"
@@ -77,6 +78,10 @@ module.exports = function() {
   router.post('/api/v1/itementries/additems', api.itemEntries.createItem);
   router.put('/api/v1/itementries', api.itemEntries.update);
   router.delete('/api/v1/itementries/:id', api.itemEntries.delete);
+  
+  router.post('/api/v1/laborentries', api.laborEntries.create);
+  router.put('/api/v1/laborentries', api.laborEntries.update);
+  router.delete('/api/v1/laborentries/:id', api.laborEntries.delete);
 
   return router;
 };
