@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $('#nav-clients').addClass("active");
+    
 	//console.log(':)', invoice);
 	$('#tab-overview' ).click(showOverviewPage);
     $('#tab-labor'    ).click(showLaborPage);

@@ -12,37 +12,29 @@ block content
         div(class="row")
           div(class="col s12")
             div(class="card white")
-              div(class="card-content red lighten-2 white-text")
-                span(class="card-title") Important Information
-                p I am a very simple card. I am good at containing small bits of information.
-                | I am convenient because I require little markup to use effectively.
+              div(class="card-content")
+                span(class="card-title red-text") Dashboard
+                p This is the dashboard. We can put important information here or quick
+                | links to things you use most often.
               
               div(class="card-action right-align")
-                a(href="#") This is a link
-                a(href='#') This is a link
+                a(href="#") Link to something
             
         div(class="row")
           div(class="col s12")
             div(class="card white")
-              div(class="card-content")
-                table(class="bordered centered")
-                  thead
-                    th Header 1
-                    th Header 2
-                    th Header 3
-                  tbody
-                    tr
-                      td Data 1
-                      td Data 2
-                      td Data 3
-                    tr
-                      td Data 1
-                      td Data 2
-                      td Data 3
-                    tr
-                      td Data 1
-                      td Data 2
-                      td Data 3
+              div(class="card-content", style="padding-right: 0px; padding-left: 0px; padding-bottom: 0px")
+                span(class="card-title red-text", style="padding-right: 20px; padding-left: 20px") Active Invoices
+                
+                div(class="collection z-depth-0", style="margin-bottom: 0px")
+                  each invoice in invoices
+                    a(href="#" class="collection-item item-row")
+                      table
+                        tbody
+                          tr
+                            td= invoice.getDateString()
+                            //td(id="memo_" + item._id)= item.memo || item.category
+                            //td(id="cost_" + item._id, style="width:15%", class="center")= "$" + (item.rate * item.qty).toFixed(2)
        
       div(class="col s3")
         h5 Settings

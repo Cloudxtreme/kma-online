@@ -1,9 +1,15 @@
 var Promise = require('bluebird');
 var Models  = require('../../models')
 
-var index = {
+var app = {
 	index: function (req, res) {
-		res.render('app/index');
+        Promise.resolve(Models.Invoice.find({ paid: false }).exec())
+        .then(function (invoices) {
+            res.render('app/index', {
+                invoices: invoices
+            });            
+        });
+		
 	},
 	
 	clients:  require('./clients.js'),
@@ -12,4 +18,4 @@ var index = {
 	utils:    require('./utils.js')
 };
 
-module.exports = index;
+module.exports = app;
