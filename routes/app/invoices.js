@@ -1,5 +1,6 @@
 var Promise = require('bluebird');
 var Models  = require('../../models')
+var Utils  = require('../../modules/utils.js')
 
 var invoices = {
 	single: function (req, res) {
@@ -78,19 +79,55 @@ var invoices = {
 	overview: function (req, res) {
 		var laborTotal = 0,
 			itemsTotal = 0,
-			id = req.params.id;
+            addItemsTotal = 0,
+            subtotal = 0,
+            op = 0,
+            grandTotal = 0,
+			id = req.params.id,
+            clientId = req.params.clientId;
+            
+        var invoice = null;
 		
 		Promise.resolve(Models.Invoice.findOne({ _id: id })
-			.populate({ path: 'labor', options: { sort: { 'worker'  : 1 } } })
-			.populate({ path: 'items', options: { sort: { 'category': 1 } } })
+			.populate({ path: 'labor',    options: { sort: { 'worker'   : 1 } } })
+			.populate({ path: 'items',    options: { sort: { 'category' : 1 } } })
+            .populate({ path: 'addItems', options: { sort: { 'category' : 1 } } })
 			.exec())
-			.then(function (invoice) {
-				laborTotal = getLaborTotal(invoice.labor);
+            .then(function (dbInvoice) {
+                var options = {
+                    path: 'labor.worker',
+                    model: 'Worker'
+                };
+            
+                // Populate workers.
+                return Promise.resolve(Models.Invoice
+                    .populate(dbInvoice, options));
+            })
+			.then(function (dbInvoice) {
+                invoice = dbInvoice;
+                return Promise.resolve(Models.Worker.find( { _project : invoice._project }).exec());
+            })
+            .then(function (workers) {
+				laborTotal = getLaborTotal(invoice.labor, workers);
 				itemsTotal = getItemsTotal(invoice.items);
+                addItemsTotal = getItemsTotal(invoice.addItems);
+                subtotal = (laborTotal + itemsTotal + addItemsTotal + invoice.sv);
+                op = (invoice.op * subtotal);
+                grandTotal = subtotal + op;
+                
+                var workerTotals = getWorkerTotals(invoice.labor);
+                
 				return res.render('app/invoices/pages/overview.jade', {
+                    clientId: clientId,
 					invoice: invoice,
-					laborTotal: laborTotal,
-					itemsTotal: itemsTotal
+					laborTotal: Utils.formatMoney(laborTotal),
+					itemsTotal: Utils.formatMoney(itemsTotal),
+                    addItemsTotal: Utils.formatMoney(addItemsTotal),
+                    supervision: Utils.formatMoney(invoice.sv),
+                    subtotal: Utils.formatMoney(subtotal),
+                    op: Utils.formatMoney(op),
+                    grandTotal: Utils.formatMoney(grandTotal),
+                    workerTotals: workerTotals
 				});
 			});
 	},
@@ -164,10 +201,10 @@ var invoices = {
 };
 
 function getLaborTotal(laborData) {
-	var total = 0;
-	for (var i = 0; i < laborData.length; i++)
-		total += laborData[i].rate * laborData[i].hours;
-	return parseFloat(total.toFixed(2));
+    var total = 0;
+    for (var i = 0; i < laborData.length; i++)
+        total += laborData[i].worker.billable * laborData[i].hours;
+    return parseFloat(total.toFixed(2));
 }
 
 function getItemsTotal(itemsData) {
@@ -175,6 +212,21 @@ function getItemsTotal(itemsData) {
 	for (var i = 0; i < itemsData.length; i++)
 		total += itemsData[i].rate * itemsData[i].qty;
 	return parseFloat(total.toFixed(2));
+}
+
+function getWorkerTotals(laborData) {
+    var workers = {};
+    for (var i = 0; i < laborData.length; i++) {
+        var workerId = laborData[i].worker._id;
+        if (!workers[workerId]) {
+            workers[workerId] = laborData[i].worker;
+            workers[workerId].hoursWorked = 0.0;
+        }
+            
+        workers[workerId].hoursWorked += laborData[i].hours;
+    }
+    
+    return workers;
 }
 
 module.exports = invoices;

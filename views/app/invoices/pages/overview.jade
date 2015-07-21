@@ -5,28 +5,32 @@ div(class="col s12")
       div(class="card white")
         div(class="card-content")
           span(class="card-title grey-text") Overview
+        div(class="card-action grey lighten-4")
+          a(href='#') Download Excel
+          a(href='#') Mark as Paid
+          a(href='/app/clients/' + clientId + '/projects/' + invoice._project + '/invoices/' + invoice._id + '/edit') Edit Invoice
+        div(class="card-content")
+            
     div(class="col s5")
       div(class="card white")
         div(class="card-content")
-          span(class="card-title grey-text center-align") Invoice Breakdown
+          span(class="card-title grey-text center-align") Cost Breakdown
         div(class="card-content green lighten-2 white-text")
-          span(class="card-title white-text") Cost
-          br
           table(class="breakdown-table")
     
             tbody
               tr
                 td Labor
-                td= "$" + laborTotal.toFixed(2)
+                td= laborTotal
               tr
                 td Items
-                td= "$" + itemsTotal.toFixed(2)
+                td= itemsTotal
               tr
                 td Additional Items
-                td $2,000.00
+                td= addItemsTotal
               tr
                 td Supervision
-                td= invoice.getSVString()
+                td= supervision
               tr
                 td
                   br
@@ -34,17 +38,18 @@ div(class="col s12")
                   br
               tr
                 td Sub-Total
-                td= laborTotal + itemsTotal + invoice.sv
+                td= subtotal
               tr
                 td Overhead & Profit
-                td= "$" + (invoice.op * (laborTotal + itemsTotal + invoice.sv)).toFixed(2)
+                td= op
               tr
                 td Grand Total
-                td $117,000
+                td= grandTotal
               
+      div(class="card white")
+        div(class="card-content")
+          span(class="card-title grey-text center-align") Labor Details
         div(class="card-content blue lighten-2 white-text")
-          span(class="card-title white-text") Labor
-          br
           table(class="breakdown-table")
             thead
               tr
@@ -52,15 +57,7 @@ div(class="col s12")
                 th(data-field="hours") Hours Worked
     
             tbody
-              tr
-                td Kim Nilsen
-                td 102.4
-              tr
-                td Sam Walton
-                td 77
-              tr
-                td Greg
-                td 130.4
-              tr
-                td Tracy McGrady
-                td 35.7
+              each worker in workerTotals
+                tr
+                  td= worker.name
+                  td= worker.hoursWorked

@@ -6,6 +6,13 @@ div(class="col s12")
   div(class="row")
     div(class="col s12")
       if invoice.addItems.length > 0
+        div(style="padding-left: 25px; padding-right: 25px;")
+          table
+            tbody
+              td
+                span(class="grey-text") Item
+              td(style="width:15%", class="center")
+                span(class="grey-text") Cost
         div(class="collection z-depth-1")
           each item in invoice.addItems
             a(href="#add-items-modal" class="collection-item item-row modal-trigger add-item-modal add-item-link" id=item._id)
@@ -13,7 +20,7 @@ div(class="col s12")
                 tbody
                   tr
                     td(id="cat_" + item._id)= item.category
-                    td(id="cost_" + item._id, style="width:15%")= "$" + (item.rate * item.qty).toFixed(2)
+                    td(id="cost_" + item._id, style="width:15%", class="center")= "$" + (item.rate * item.qty).toFixed(2)
       else
         h4(class="grey-text center") No additional items to display.
         
@@ -33,7 +40,7 @@ div(class="col s12")
               label(for="add-item-rate" class="active") Rate
             div(class="input-field col s6")
               input(id="add-item-qty", type="text", class="validate")
-              label(for="add-item-qty" class="active") Quantity
+              label(for="add-item-qty" class="active") Quantity/Hours
           
         div(class="modal-footer")
           a(id="add-item-save-modal" href="#!" class="modal-action waves-effect waves-green btn-flat blue-text") Save

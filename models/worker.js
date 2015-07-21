@@ -5,10 +5,12 @@ var Promise 			  = require('bluebird'),
  
 var WorkerSchema = new Schema({
 	_project: { type: Number, required: true,  ref: "Project" },
-    name:     { type: String, required: true,  index: { unique: true } },
+    name:     { type: String, required: true },
     billable: { type: Number, required: false, default: 0 },
     wage:     { type: Number, required: false, default: 0 }
 });
+
+WorkerSchema.index({_project: 1, name: 1}, {unique: true});
 
 WorkerSchema.pre('save', function(next) {
 	var user = this;

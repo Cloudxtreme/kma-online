@@ -7,6 +7,12 @@ $(document).ready(function() {
     $('#labor-save-modal').click(saveLabor);
     $('#labor-delete-modal').click(deleteLabor);
     
+    // $('.datepicker').pickadate({
+    // selectMonths: true, // Creates a dropdown to control month
+    // selectYears: 15 // Creates a dropdown of 15 years to control year
+  // });
+        
+    
     $('.labor-link').click(function() {
         var laborId = $(this).attr('id');
         selectedLabor = $.grep(invoice.labor, function(e) { return e._id == laborId })[0];

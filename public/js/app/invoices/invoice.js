@@ -56,3 +56,11 @@ function parseRate (div) {
   
   return parsed;
 }
+
+/*
+ * Formats a date or date string into a string mm/dd/yyyy
+ */
+function getDateString(date) {
+    date = new Date(date);
+    return (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();
+}

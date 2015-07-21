@@ -41,6 +41,7 @@ var itemEntries = {
 				dbItemEntry.subcat = req.body.subcat;
                 dbItemEntry.source = req.body.source;
 				dbItemEntry.memo = req.body.memo;
+                dbItemEntry.date = new Date(req.body.date);
                 dbItemEntry.rate = req.body.rate;
                 dbItemEntry.qty = req.body.qty;
 				console.log('saving item entry.');

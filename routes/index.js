@@ -75,7 +75,7 @@ module.exports = function() {
   router.put('/api/v1/invoices', api.invoices.update);
   
   router.post('/api/v1/itementries/items', api.itemEntries.createItem);
-  router.post('/api/v1/itementries/additems', api.itemEntries.createItem);
+  router.post('/api/v1/itementries/additems', api.itemEntries.createAddItem);
   router.put('/api/v1/itementries', api.itemEntries.update);
   router.delete('/api/v1/itementries/:id', api.itemEntries.delete);
   

@@ -5,6 +5,12 @@ $(document).ready(function() {
     $('#item-save-modal').click(saveItem);
     $('#item-delete-modal').click(deleteItem);
     
+    var picker = $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 5, // Creates a dropdown of 15 years to control year
+        format: 'mm/dd/yyyy',
+    }).pickadate('picker');
+    
     $('.item-link').click(function() {
         var itemId = $(this).attr('id');
         selectedItem = $.grep(invoice.items, function(e) { return e._id == itemId })[0];
@@ -14,6 +20,8 @@ $(document).ready(function() {
         $('#item-subcat').val(selectedItem.subcat);
         $('#item-source').val(selectedItem.source);
         $('#item-memo').val(selectedItem.memo);
+        // $('#item-date').val(getDateString(selectedItem.date));
+        picker.set('select', new Date(selectedItem.date));
         $('#item-rate').val("$" + selectedItem.rate);
         $('#item-qty').val(selectedItem.qty);
     });
@@ -44,6 +52,7 @@ function createItem() {
         subcat  : $('#item-subcat').val(),
         source  : $('#item-source').val(),
         memo    : $('#item-memo').val(),
+        date    : new Date($('#item-date').val()),
         rate    : parseRate("#item-rate"),
         qty     : $('#item-qty').val()
     };
@@ -79,12 +88,14 @@ function saveItem() {
     selectedItem.subcat     = $('#item-subcat').val();
     selectedItem.source     = $('#item-source').val();
     selectedItem.memo       = $('#item-memo').val();
+    selectedItem.date       = new Date($('#item-date').val());
     selectedItem.rate       = parseRate("#item-rate");
     selectedItem.qty        = $('#item-qty').val();
     
     var id = selectedItem._id;
     var memoText = selectedItem.memo || selectedItem.category;
     var costText = "$" + (selectedItem.rate * selectedItem.qty).toFixed(2);
+    var dateText = getDateString(selectedItem.date);
     
     $.ajax({
         url: '/api/v1/itementries/',
@@ -95,6 +106,7 @@ function saveItem() {
             
             $('#memo_' + id).text(memoText);
             $('#cost_' + id).text(costText);
+            $('#item-date_' + id).text(dateText);
             
             $('#item-modal').closeModal();
             itemModalOnClose();
@@ -139,6 +151,7 @@ function itemModalOnClose() {
     $('#item-subcat').val("");
     $('#item-source').val("");
     $('#item-memo').val("");
+    $('#item-date').val(""),
     $('#item-rate').val("");
     $('#item-qty').val("");
         
