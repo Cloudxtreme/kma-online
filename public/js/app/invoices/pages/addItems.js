@@ -17,6 +17,8 @@ $(document).ready(function() {
         // Put the additional item info into the modal.
         console.log("add-item: " + selectedAddItem);
         $('#add-item-category').val(selectedAddItem.category);
+        $('#add-item-source').val(selectedAddItem.source);
+        $('#add-item-memo').val(selectedAddItem.memo);
         $('#add-item-rate').val("$" + selectedAddItem.rate.toFixed(2));
         $('#add-item-qty').val(selectedAddItem.qty);
     });
@@ -44,6 +46,8 @@ function createAddItem() {
     selectedAddItem = {
         _invoice: invoice._id,
         category: $('#add-item-category').val(),
+        source:   $('#add-item-source').val(),
+        memo:     $('#add-item-memo').val(),
         rate:     parseRate("#add-item-rate"),
         qty:      $('#add-item-qty').val()
     };
@@ -73,12 +77,16 @@ function saveAddItem() {
     
     console.log('saving...');
     console.log('cat: ' + $('#add-item-category').val());
+    
     selectedAddItem.category = $('#add-item-category').val();
-    selectedAddItem.rate = parseRate("#add-item-rate");
-    selectedAddItem.qty = $('#add-item-qty').val();
+    selectedAddItem.source   = $('#add-item-source').val();
+    selectedAddItem.memo     = $('#add-item-memo').val();
+    selectedAddItem.rate     = parseRate("#add-item-rate");
+    selectedAddItem.qty      = parseFloat($('#add-item-qty').val());
     
     var id = selectedAddItem._id;
-    var catText = selectedAddItem.category;
+    var catText  = selectedAddItem.category;
+    var qtyYext  = selectedAddItem.qty.toFixed(2); 
     var costText = "$" + (selectedAddItem.rate * selectedAddItem.qty).toFixed(2);
     
     $.ajax({
@@ -88,9 +96,11 @@ function saveAddItem() {
         success: function (res) {
             console.log('Update:', res);
             
-            $('#cat_' + id).text(catText);
+            $('#cat_'  + id).text(catText);
+            $('#src_'  + id).text(selectedAddItem.source);
+            $('#memo_' + id).text(selectedAddItem.memo);
+            $('#qty_'  + id).text(qtyYext);
             $('#cost_' + id).text(costText);
-            
             $('#add-items-modal').closeModal();
             addItemModalOnClose();
         }
@@ -131,6 +141,8 @@ function addItemModalOnClose() {
         
     // Clear the modal inputs.
     $('#add-item-category').val("");
+    $('#add-item-source').val("");
+    $('#add-item-memo').val("");
     $('#add-item-rate').val("");
     $('#add-item-qty').val("");
         

@@ -232,20 +232,23 @@ function createLaborEntries (laborEntries, invoice, projectId) {
 }
 
 function parseItemData (ws) {
+    console.log('PARSING ITEMS');
 	var itemEntries = [];
   	var currCat 	= null;
   	var currSubCat 	= null;
 	var itemEntry 	= new Models.ItemEntry();
 
-	var col_cat		= 'A',
-		col_sub		= 'B',
-		col_date 	= 'D',
-      	col_source 	= 'E',
-      	col_memo 	= 'F',
-      	col_amount 	= 'G';
+	var col_cat		= 'C',
+		col_sub		= 'D',
+		col_date 	= 'F',
+      	col_source 	= 'G',
+      	col_memo 	= 'H',
+      	col_amount 	= 'I';
 		  	
 	for (var z in ws) {
 		if (z[0] === '!') continue;
+        
+        console.log(z);
 
     	//Total for the main category
     	if (z.indexOf(col_cat) == 0) {
@@ -256,6 +259,7 @@ function parseItemData (ws) {
       		}
 
 	      	currCat = ws[z].v.trim().replace(/\./g, '_');
+            console.log('currCat: ' +  currCat);
 	      	//itemEntry = new Models.ItemEntry();
 			itemEntry.category = currCat;
 	    }

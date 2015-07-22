@@ -14,6 +14,8 @@ div(class="col s12")
               td
                 span(class="grey-text") Item Name
               td(style="width:15%", class="center")
+                span(class="grey-text") Hours
+              td(style="width:15%", class="center")
                 span(class="grey-text") Cost
         div(class="collection z-depth-1")
           each item in invoice.labor
@@ -23,6 +25,7 @@ div(class="col s12")
                   tr
                     td(id="laborworker_" + item._id, style="width:25%")= item.worker.name
                     td(id="laborname_" + item._id)= item.name
+                    td(id="laborname_" + item._id, style="width:15%", class="center")= item.hours
                     td(id="laborcost_" + item._id, style="width:15%", class="center")= "$" + (item.worker.billable * item.hours).toFixed(2)
       else
         h4(class="grey-text center") No labor to display.
