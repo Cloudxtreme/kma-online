@@ -13,7 +13,8 @@ var InvoiceSchema = new Schema({
 	paid: 	     { type: Boolean, required: false, default: false },
 	labor:      [{ type: Number,  required: false, ref: "LaborEntry" }],
 	items:      [{ type: Number,  required: false, ref: "ItemEntry"  }],
-	addItems:   [{ type: Number,  required: false, ref: "ItemEntry"  }]
+	addItems:   [{ type: Number,  required: false, ref: "ItemEntry"  }],
+    workers:    [{ type: Number,  required: false, ref: "Worker"     }]
 });
 
 InvoiceSchema.index({ _project: 1, date: 1 }, { unique: true });

@@ -173,23 +173,26 @@ function createLaborEntries (laborEntries, invoice, projectId) {
 			workerHash[entry.workerName] = entry.workerName;
 			
 			workerPromises.push(
-				Promise.resolve(Models.Worker.findOne({ name: entry.workerName, _project: projectId }).exec())
-				.then(function (worker) {
-					if (worker) {
-                        console.log('found existing worker: ', worker); 
-                        return worker;
-                    }
-					
-					// Worker doesn't exist, create new one.
-					var newWorker = new Models.Worker({
-						_project: projectId,
-						name: entry.workerName
-					});
-					return Promise.resolve(newWorker.save());
-				})
-				.catch(function (err) {
-					console.log('Error creating worker:', err);
-				})
+				Promise.resolve(Models.Worker.findOne({ name: entry.workerName, _project: projectId })
+                    .sort({ modified: -1 }).exec())
+    				.then(function (worker) {
+    					if (worker) {
+                            console.log('found existing worker: ', worker); 
+                        }
+    					
+    					// create new one.
+    					var newWorker = new Models.Worker({
+    						_project: projectId,
+                            _invoice: invoice._id,
+    						name: entry.workerName,
+                            wage: (worker && worker.wage) || 0,
+                            billable: (worker && worker.billable) || 0
+    					});
+    					return Promise.resolve(newWorker.save());
+    				})
+    				.catch(function (err) {
+    					console.log('Error creating worker:', err);
+    				})
 			);
 		}
 	});
@@ -199,10 +202,9 @@ function createLaborEntries (laborEntries, invoice, projectId) {
 			laborEntries.forEach(function (entry) {
 				// Find the worker in the database for this entry.
 				promises.push(
-					Promise.resolve(Models.Worker.findOne({ name: entry.workerName, _project: projectId }).exec())
+					Promise.resolve(Models.Worker.findOne({ name: entry.workerName, _invoice: invoice._id }).exec())
 					.then(function (worker) {
 						if (!worker) throw new Error("Unable to find or generate worker!!");
-						entry.rate = worker.wage || 0;
 						entry.worker = worker._id;
 						entry._invoice = invoice._id;
 						var laborEntry = new Models.LaborEntry(entry);

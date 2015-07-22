@@ -92,6 +92,7 @@ var invoices = {
 			.populate({ path: 'labor',    options: { sort: { 'worker'   : 1 } } })
 			.populate({ path: 'items',    options: { sort: { 'category' : 1 } } })
             .populate({ path: 'addItems', options: { sort: { 'category' : 1 } } })
+            .populate({ path: 'workers',  options: { sort: { 'name'     : 1 } } })
 			.exec())
             .then(function (dbInvoice) {
                 var options = {
@@ -105,10 +106,7 @@ var invoices = {
             })
 			.then(function (dbInvoice) {
                 invoice = dbInvoice;
-                return Promise.resolve(Models.Worker.find( { _project : invoice._project }).exec());
-            })
-            .then(function (workers) {
-				laborTotal = getLaborTotal(invoice.labor, workers);
+				laborTotal = getLaborTotal(invoice.labor, invoice.workers);
 				itemsTotal = getItemsTotal(invoice.items);
                 addItemsTotal = getItemsTotal(invoice.addItems);
                 subtotal = (laborTotal + itemsTotal + addItemsTotal + invoice.sv);
@@ -118,16 +116,16 @@ var invoices = {
                 var workerTotals = getWorkerTotals(invoice.labor);
                 
 				return res.render('app/invoices/pages/overview.jade', {
-                    clientId: clientId,
-					invoice: invoice,
-					laborTotal: Utils.formatMoney(laborTotal),
-					itemsTotal: Utils.formatMoney(itemsTotal),
-                    addItemsTotal: Utils.formatMoney(addItemsTotal),
-                    supervision: Utils.formatMoney(invoice.sv),
-                    subtotal: Utils.formatMoney(subtotal),
-                    op: Utils.formatMoney(op),
-                    grandTotal: Utils.formatMoney(grandTotal),
-                    workerTotals: workerTotals
+                    clientId       : clientId,
+					invoice        : invoice,
+					laborTotal     : Utils.formatMoney(laborTotal),
+					itemsTotal     : Utils.formatMoney(itemsTotal),
+                    addItemsTotal  : Utils.formatMoney(addItemsTotal),
+                    supervision    : Utils.formatMoney(invoice.sv),
+                    subtotal       : Utils.formatMoney(subtotal),
+                    op             : Utils.formatMoney(op),
+                    grandTotal     : Utils.formatMoney(grandTotal),
+                    workerTotals   : workerTotals
 				});
 			});
 	},
@@ -163,7 +161,8 @@ var invoices = {
         var dbInvoice;
         
         Promise.resolve(Models.Invoice.findOne({ _id: id })
-			.populate({ path: 'labor', options: { sort: { 'worker': 1, 'name': 1 } } })
+			.populate({ path: 'labor',   options: { sort: { 'worker': 1, 'name': 1 } } })
+            .populate({ path: 'workers', options: { sort: { 'name'  : 1 } } })
 			.exec())
 			.then(function (invoice) {
                 var options = {
@@ -176,21 +175,18 @@ var invoices = {
                     .populate(invoice, options));
 			})
             .then(function (invoice) {
-               dbInvoice = invoice;
-               return Promise.resolve(Models.Worker.find({ _project: dbInvoice._project }).exec());
-            })
-            .then(function (workers) {
+                dbInvoice = invoice;
                 return res.render('app/invoices/pages/labor.jade', {
 					invoice: dbInvoice,
-                    workers: workers
+                    workers: invoice.workers
 				});
             })
     },
     
     workers: function(req, res) {
-        var id = req.params.projectId;
+        var id = req.params.id;
         
-        Promise.resolve(Models.Worker.find({ _project: id }))
+        Promise.resolve(Models.Worker.find({ _invoice: id }))
 			.then(function (workers) {
                 return res.render('app/invoices/pages/workers.jade', {
                     projectId: id,
