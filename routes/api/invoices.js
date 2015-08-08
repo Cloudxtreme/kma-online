@@ -233,25 +233,50 @@ function createLaborEntries (laborEntries, invoice, projectId) {
 	
 }
 
+/*
+ * Auto detects where the "Date" column starts in the item page because
+ * QuickBooks is terribly inefficient.
+ */
+function getDateColumn(ws) {
+    var count = 0;
+    for (var z in ws) {
+        if (z[0] === '!') continue;
+        if (ws[z].v == 'Date') {
+            console.log('Date column identified:', z.charAt(0));
+            return z.charAt(0);
+        }
+        
+        count++;
+        if (count > 25) {
+            return -1;
+        }
+    }
+}
+
 function parseItemData (ws) {
     console.log('PARSING ITEMS');
 	var itemEntries = [];
   	var currCat 	= null;
   	var currSubCat 	= null;
 	var itemEntry 	= new Models.ItemEntry();
-
+    
 	var col_cat		= 'C',
-		col_sub		= 'D',
-		col_date 	= 'F',
-      	col_source 	= 'G',
-      	col_memo 	= 'H',
-      	col_amount 	= 'I';
+		col_sub		= 'D';
+        
+        
+    var col_date 	= getDateColumn(ws),
+      	col_source 	= String.fromCharCode(col_date.charCodeAt(0) + 1),
+      	col_memo 	= String.fromCharCode(col_date.charCodeAt(0) + 2),
+      	col_amount 	= String.fromCharCode(col_date.charCodeAt(0) + 3);
+          
+    console.log(col_date);
+    console.log(col_source);
+    console.log(col_memo);
+    console.log(col_amount);
 		  	
 	for (var z in ws) {
 		if (z[0] === '!') continue;
         
-        console.log(z);
-
     	//Total for the main category
     	if (z.indexOf(col_cat) == 0) {
       		if (ws[z].v.indexOf('Total') == 0) {
@@ -265,6 +290,14 @@ function parseItemData (ws) {
 	      	//itemEntry = new Models.ItemEntry();
 			itemEntry.category = currCat;
 	    }
+        
+        // Section at bottom called "No item"
+        if (z.indexOf('B') == 0) {
+            if (ws[z].v.toLowerCase().indexOf('no item') == 0) {
+                currCat = ws[z].v.trim();
+                itemEntry.category = currCat;
+            }
+        }
 
 		if (!currCat) continue;
 		
