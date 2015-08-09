@@ -56,6 +56,8 @@ module.exports = function() {
   }));
   router.post('/app/utils/ws-selector', app.utils.wsSelector);
   
+  router.get('/app/reports', app.reports.invoice);
+  
   /* API routes */
   router.get('/api/v1/user/:id', api.users.getOne);
   

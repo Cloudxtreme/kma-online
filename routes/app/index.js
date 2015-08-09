@@ -15,7 +15,8 @@ var app = {
 	clients:  require('./clients.js'),
 	projects: require('./projects.js'),
 	invoices: require('./invoices.js'),
-	utils:    require('./utils.js')
+	utils:    require('./utils.js'),
+    reports:  require('./reports')
 };
 
 module.exports = app;
