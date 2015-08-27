@@ -1,5 +1,5 @@
 #!/bin/bash
 #This should run after the build is deployed.
 echo "Installing perl modules..."
-echo $PWD
-cd ../../plibs
+echo $OPENSHIFT_REPO_DIR
+cd $OPENSHIFT_REPO_DIR/plibs
