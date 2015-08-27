@@ -1,9 +1,25 @@
 #!/bin/bash
 #This should run after the build is deployed.
 echo "Installing perl modules..."
-echo $OPENSHIFT_REPO_DIR
+
 cd $OPENSHIFT_REPO_DIR/plibs/Archive-Zip-1.49/
-perl Makefile.PL INSTALL_BASE=../../routes/app/reports/pmodules
+perl Makefile.PL INSTALL_BASE=$OPENSHIFT_REPO_DIR/routes/app/reports/pmodules
 make
 make install
-echo "Installed Arhive-Zip perl module."
+
+cd $OPENSHIFT_REPO_DIR/plibs/Data-Dumper-2.154/
+perl Makefile.PL INSTALL_BASE=$OPENSHIFT_REPO_DIR/routes/app/reports/pmodules
+make
+make install
+
+cd $OPENSHIFT_REPO_DIR/plibs/JSON-Parse-0.32/
+perl Makefile.PL INSTALL_BASE=$OPENSHIFT_REPO_DIR/routes/app/reports/pmodules
+make
+make install
+
+cd $OPENSHIFT_REPO_DIR/plibs/Spreadsheet-WriteExcel-2.40/
+perl Makefile.PL INSTALL_BASE=$OPENSHIFT_REPO_DIR/routes/app/reports/pmodules
+make
+make install
+
+echo "...Done!"
