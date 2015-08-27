@@ -2,4 +2,8 @@
 #This should run after the build is deployed.
 echo "Installing perl modules..."
 echo $OPENSHIFT_REPO_DIR
-cd $OPENSHIFT_REPO_DIR/plibs
+cd $OPENSHIFT_REPO_DIR/plibs/Archive-Zip-1.49/
+perl Makefile.PL INSTALL_BASE=../../routes/app/reports/pmodules
+make
+make install
+echo "Installed Arhive-Zip perl module."
