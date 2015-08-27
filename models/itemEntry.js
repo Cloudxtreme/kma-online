@@ -10,8 +10,8 @@ var ItemEntrySchema = new Schema({
 	date:     { type: Date,   required: false },
 	source:   { type: String, required: false },
 	memo:     { type: String, required: false },
-	rate:     { type: Number, required: false, default: 0 },
-	qty:      { type: Number, required: false, default: 1 }
+	rate:     { type: Number, required: true, default: 0 },
+	qty:      { type: Number, required: true, default: 1 }
 });
 
 ItemEntrySchema.methods.getDateString = function () {

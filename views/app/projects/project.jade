@@ -45,7 +45,7 @@ block content
                     div(class="col s5")
                       div(class="row")
                         div(class="col s12")
-                          span(class="card-title white-text")= invoice.getDateString()
+                          span(class="card-title white-text")= "#" + invoice.invoiceNum + " - " + invoice.getDateString()
                 div(class="card-action")
                   a(href='/app/clients/' + client._id + '/projects/' + project._id + '/invoices/' + invoice._id + '/edit', class="right") Edit Invoice
                   a(href="/app/clients/" + client._id + "/projects/" + project._id + '/invoices/' + invoice._id, class="right") View Invoice

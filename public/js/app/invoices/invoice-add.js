@@ -20,6 +20,7 @@ $(document).ready(function (){
   
   $('#op').blur(validateForm);
   $('#sv').blur(validateForm);
+  $('#invoiceNum').blur(validateForm);
   
   if (invoice) {
     $('.datepicker').pickadate('picker').set('select', new Date(invoice.date));
@@ -45,7 +46,8 @@ function addButtonClicked () {
     _project: project._id,
     date: new Date($('#date').val()),
     op: parseOP(),
-    sv: parseSV()
+    sv: parseSV(),
+    invoiceNum: parseInt($('#invoiceNum').val())
   };
   
   if (!invoice) {
@@ -124,10 +126,11 @@ function validateForm () {
   var dateValid = (Object.prototype.toString.call(date) === "[object Date]");
   var validOP = validateOP();
   var validSV = validateSV();
+  var validInvoiceNum = validateInvoiceNum();
   
   // it is a date
     
-  if (sheetsValid && dateValid && validOP && validSV) {
+  if (sheetsValid && dateValid && validOP && validSV && validInvoiceNum) {
     $('#btn-add').removeClass('disabled');
     $('#btn-add').addClass('blue waves-effect waves-light');
     return true;
@@ -189,6 +192,28 @@ function validateSV () {
     
   }
 }
+
+ /*
+  * Validates that the invoice num has a numerical value.
+  */
+ function validateInvoiceNum() {
+   if ( !$('#invoiceNum').val()) {
+     $('#invoiceNum').val("0");
+     return false;
+   }
+   
+   var val = parseInt($('#invoiceNum').val());
+   if (!isNaN(val) && val > 0) {
+     $('#invoiceNum').removeClass("invalid");
+     $('#message').html('');
+     return true;
+   }
+   else {
+     $('#message').html('Invalid Invoice Number');
+     $('#invoiceNum').addClass("invalid");
+     return false;  
+   }
+ }
 
 /*
  * Removes commas and percentage signs and attempts to parse to a float.

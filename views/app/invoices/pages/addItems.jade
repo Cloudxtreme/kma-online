@@ -28,7 +28,7 @@ div(class="col s12")
                     td(id="cat_"  + item._id, style="width:20%")= item.category
                     td(id="src_"  + item._id, style="width:20%")= item.source
                     td(id="memo_" + item._id)= item.memo || ""
-                    td(id="qty_"  + item._id, style="width:15%", class="center")= item.qty.toFixed(2)
+                    td(id="qty_"  + item._id, style="width:15%", class="center")= (item.qty && item.qty.toFixed(2)) || "0"
                     td(id="cost_" + item._id, style="width:15%", class="center")= "$" + (item.rate * item.qty).toFixed(2)
       else
         h4(class="grey-text center") No additional items to display.

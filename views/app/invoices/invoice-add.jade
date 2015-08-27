@@ -26,6 +26,11 @@ block content
                 
             div(class="row")
               div(class="input-field col s12")
+                input(id="invoiceNum", type="text", class="validate", value=(!invoice) ? "0" : invoice.invoiceNum)
+                label(for="invoiceNum") Invoice Number
+                
+            div(class="row")
+              div(class="input-field col s12")
                 input(id="op", type="text", class="validate", value=(!invoice) ? project.getOPString() : invoice.getOPString())
                 label(for="op") Overhead & Percentage
                 

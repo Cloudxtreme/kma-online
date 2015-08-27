@@ -8,6 +8,7 @@ var InvoiceSchema = new Schema({
 	_client:     { type: Number,  required: true,  ref: "Client" },
 	_project:    { type: Number,  required: true,  ref: "Project" },
     date:        { type: Date,    required: true,  default: Date.now },
+    invoiceNum:  { type: Number,  required: true,  index: { unique: true } },
 	op:          { type: Number,  required: false, default: 0, get: getDecimal, set: setDecimal }, // Overhead and profit, stored as float [0-1)
 	sv: 		 { type: Number,  required: false, default: 0, get: getDecimal, set: setDecimal }, // Cost for supervision
 	paid: 	     { type: Boolean, required: false, default: false },

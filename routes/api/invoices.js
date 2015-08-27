@@ -91,6 +91,7 @@ var invoices = {
 				dbInvoice.date = req.body.date;
 				dbInvoice.sv = req.body.sv;
 				dbInvoice.op = req.body.op;
+                dbInvoice.invoiceNum = req.body.invoiceNum;
 				console.log('saving project');
 				return Promise.resolve(dbInvoice.save());
 			})

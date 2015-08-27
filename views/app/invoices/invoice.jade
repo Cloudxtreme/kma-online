@@ -9,7 +9,7 @@ block links
 block content
     div(class="row")
       div(class="col s7")
-        h4(class="red-text lighten-2 thin")= project.name + " - Invoice " + invoice.getDateString()
+        h4(class="red-text lighten-2 thin")= project.name + " - Invoice " + "#" + invoice.invoiceNum + " - " + invoice.getDateString()
       div(class="col s5")
         a(href="/app/clients/" + clientId + '/projects/' + project._id, class="waves-effect waves-blue btn-flat right bottom blue-text")
           i(class="mdi-navigation-arrow-back left")
